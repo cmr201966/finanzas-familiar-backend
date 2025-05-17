@@ -1,7 +1,8 @@
-const jwt = require('jsonwebtoken');
-const config = require('../config');
+import jwt from 'jsonwebtoken';
 
-function auth(req, res, next) {
+import { config } from '../config.js';
+
+export default function authMiddleware(req, res, next) {
     if (!req.headers.authorization) {
         return res.status(401).json({ error: 'No hay cabecera de autorización' });
     }
@@ -26,4 +27,3 @@ function auth(req, res, next) {
     }
 }
 
-module.exports = auth;

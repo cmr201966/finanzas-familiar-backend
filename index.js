@@ -1,20 +1,21 @@
-const express = require('express');
-const app = express();
+import express, { json } from 'express';
 
-const config = require('./config');
+import { config } from './config.js';
 
 // Routes
-const expensesRoutes = require('./routes/expenses');
-const usersRoutes = require('./routes/users');
-const authRoutes = require('./routes/auth')
+import { ExpenseRouter } from './routes/expenses.js';
+import { UsersRouter } from './routes/users.js';
+import { AuthRouter } from './routes/auth.js';
 
-const { initTables } = require('./db/database');
+import { initTables } from './db/database.js';
 
-app.use(express.json());
+const app = express();
 
-app.use('/api/auth', authRoutes);
-app.use('/api/expenses', expensesRoutes);
-app.use('/api/users', usersRoutes);
+app.use(json());
+
+app.use('/api/auth', AuthRouter);
+app.use('/api/expenses', ExpenseRouter);
+app.use('/api/users', UsersRouter);
 
 initTables()
 
