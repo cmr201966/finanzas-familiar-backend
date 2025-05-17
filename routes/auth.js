@@ -1,17 +1,19 @@
-const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcrypt');
-const Users = require('../models/users');
-const jwt = require('jsonwebtoken');
-const config = require('../config');
+import { Router } from 'express';
+import { hash, compare } from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-router.post('/login', (req, res) => {
+import { UsersModel } from '../models/users.js';
+import { config } from '../config.js';
+
+export const AuthRouter = Router();
+
+AuthRouter.post('/login', (req, res) => {
     const { email, password } = req.body;
 
-    Users.getUserByEmail(email, (err, user) => {
+    UsersModel.getUserByEmail(email, (err, user) => {
         if (err) return res.status(500).send(err);
 
-        bcrypt.compare(password, user.password, (err, isMatch) => {
+        compare(password, user.password, (err, isMatch) => {
             if (err) return res.status(500).send(err);
 
             if (!isMatch) return res.status(401).json({ error: 'Contraseña incorrecta' });
@@ -24,19 +26,19 @@ router.post('/login', (req, res) => {
     });
 });
 
-router.post('/register', (req, res) => {
+AuthRouter.post('/register', (req, res) => {
     const { name, email, password, phone } = req.body;
 
-    Users.getUserByEmail(email, (err, user) => {
+    UsersModel.getUserByEmail(email, (err, user) => {
         if (err) return res.status(500).send(err);
         if (user) return res.status(400).json({ error: 'El usuario ya existe' });
 
-        bcrypt.hash(password, 10, (err, hash) => {
+        hash(password, 10, (err, hash) => {
             if (err) return res.status(500).send(err);
 
             const newUser = { name, email, password: hash, phone };
 
-            Users.createUser(newUser, (err, user) => {
+            createUser(newUser, (err, user) => {
                 if (err) return res.status(500).send(err);
 
                 const token = jwt.sign({ id: user.id, name: user.name }, config.secret_key_jwt, {
@@ -47,5 +49,3 @@ router.post('/register', (req, res) => {
         });
     });
 })
-
-module.exports = router;
