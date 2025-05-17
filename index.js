@@ -23,6 +23,10 @@ app.use('/api/users', UsersRouter);
 
 initTables()
 
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 app.listen(Config.server.port, () => {
   console.log(`Servidor corriendo en http://localhost:${Config.server.port}`);
 });
