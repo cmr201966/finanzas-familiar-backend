@@ -52,6 +52,40 @@ ExpenseRouter.post('/', (req, res) => {
 });
 
 
+/**
+ * @swagger
+ * /api/expenses/{id}:
+ *   put:
+ *     summary: Actualizar un gasto existente
+ *     tags: [Expenses]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID del gasto
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               amount:
+ *                 type: number
+ *               description:
+ *                 type: string
+ *               date:
+ *                 type: string
+ *                 format: date
+ *     responses:
+ *       200:
+ *         description: Gasto actualizado
+ *       500:
+ *         description: Error del servidor
+ */
+
 // Modificar gasto
 ExpenseRouter.put('/:id', (req, res) => {
   ExpenseModel.update(req.params.id, req.body, (err, changes) => {
@@ -59,6 +93,7 @@ ExpenseRouter.put('/:id', (req, res) => {
     res.json({ updated: changes });
   });
 });
+
 
 // Eliminar gasto
 ExpenseRouter.delete('/:id', (req, res) => {
