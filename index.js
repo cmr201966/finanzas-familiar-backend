@@ -1,15 +1,24 @@
-const express = require('express');
+import express, { json } from 'express';
+
+import { config } from './config.js';
+
+// Routes
+import { ExpenseRouter } from './routes/expenses.js';
+import { UsersRouter } from './routes/users.js';
+import { AuthRouter } from './routes/auth.js';
+
+import { initTables } from './db/database.js';
+
 const app = express();
-const expensesRoutes = require('./routes/expenses');
-const { initTables } = require('./db/database');
 
-app.use(express.json());
+app.use(json());
 
-app.use('/api/expenses', expensesRoutes);
+app.use('/api/auth', AuthRouter);
+app.use('/api/expenses', ExpenseRouter);
+app.use('/api/users', UsersRouter);
 
 initTables()
 
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.listen(config.db.port, () => {
+  console.log(`Servidor corriendo en http://localhost:${config.db.port}`);
 });

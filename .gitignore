@@ -4,4 +4,5 @@ Documentos
 .DS_Store
 **/*.db
 bun.lock
+.env
 
