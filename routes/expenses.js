@@ -4,6 +4,45 @@ import { ExpenseModel } from '../models/expense.js';
 
 export const ExpenseRouter = Router();
 
+
+/**
+ * @swagger
+ * tags:
+ *   name: Expenses
+ *   description: Gestión de gastos
+ */
+
+/**
+ * @swagger
+ * /api/expenses:
+ *   post:
+ *     summary: Crear un nuevo gasto
+ *     tags: [Expenses]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - amount
+ *               - description
+ *               - date
+ *             properties:
+ *               amount:
+ *                 type: number
+ *               description:
+ *                 type: string
+ *               date:
+ *                 type: string
+ *                 format: date
+ *     responses:
+ *       201:
+ *         description: Gasto creado exitosamente
+ *       500:
+ *         description: Error del servidor
+ */
+
 // Crear gasto
 ExpenseRouter.post('/', (req, res) => {
   ExpenseModel.create(req.body, (err, id) => {
@@ -11,6 +50,7 @@ ExpenseRouter.post('/', (req, res) => {
     res.status(201).json({ id });
   });
 });
+
 
 // Modificar gasto
 ExpenseRouter.put('/:id', (req, res) => {
