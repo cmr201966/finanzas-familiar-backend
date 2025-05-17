@@ -1,6 +1,6 @@
-const { db } = require('../db/database');
+import { db } from '../db/database.js';
 
-const Users = {
+export const UsersModel = {
     createUser: (user, callback) => {
         db.run('INSERT INTO users (name, email, password, phone) VALUES (?, ?, ?,?)', [user.name, user.email, user.password, user.phone], function (err) {
             const newUser = { id: this.lastID, ...user };
@@ -31,4 +31,3 @@ const Users = {
 }
 
 
-module.exports = Users;
