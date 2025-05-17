@@ -1,15 +1,16 @@
-import { db } from './database';
+import { db } from './database.js';
 import { hashSync } from 'bcrypt';
 
-function seedDatabase() {
+export function seedDatabase() {
     db.serialize(() => {
         // Usuarios
         const users = [
-            ['Juan Pérez', 'juan@example.com', '1234secure', '+34123456789'],
-            ['María García', 'maria@example.com', 'abcd1234', '+34111222333'],
-            ['Carlos López', 'carlos@example.com', 'passw0rd', '+34199887766'],
-            ['Lucía Torres', 'lucia@example.com', 'securepass', '+34666777888'],
-            ['Ana Martínez', 'ana@example.com', 'ana123456', '+34666111222'],
+            ['Juan Pérez', 'juan@example.com', '1234secure', '+341234567891'],
+//            ['cmr', 'cmr@example.com', '1235', '52675359'],
+            ['María García', 'maria@example.com', 'abcd1234', '+341112223332'],
+            ['Carlos López', 'carlos@example.com', 'passw0rd', '+341998877663'],
+            ['Lucía Torres', 'lucia@example.com', 'securepass', '+346667778884'],
+            ['Ana Martínez', 'ana@example.com', 'ana123456', '+346661112225'],
         ];
 
         const hashedUsers = users.map((user) => {

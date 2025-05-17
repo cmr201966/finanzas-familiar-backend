@@ -8,6 +8,7 @@ import { UsersRouter } from './routes/users.js';
 import { AuthRouter } from './routes/auth.js';
 
 import { initTables } from './db/database.js';
+import { seedDatabase } from './db/seed.js';
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
@@ -21,7 +22,8 @@ app.use('/api/auth', AuthRouter);
 app.use('/api/expenses', ExpenseRouter);
 app.use('/api/users', UsersRouter);
 
-initTables()
+//initTables()
+seedDatabase()
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
