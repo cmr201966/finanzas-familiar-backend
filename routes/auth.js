@@ -63,6 +63,42 @@ AuthRouter.post('/login', (req, res) => {
     });
 });
 
+
+/**
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     summary: Registrar nuevo usuario
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *               - password
+ *               - phone
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               phone:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Registro exitoso
+ *       400:
+ *         description: Usuario ya existe
+ *       500:
+ *         description: Error del servidor
+ */
+
 AuthRouter.post('/register', (req, res) => {
     const { name, email, password, phone } = req.body;
 
