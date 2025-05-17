@@ -1,9 +1,9 @@
-import { loadEnvFile } from "node:process";
+import { config } from 'dotenv'
 
-loadEnvFile(process.cwd() + '/.env')
+config()
 
 export const config = {
-    db: {
+    server: {
         port: process.env.PORT,
     },
     secret_key_jwt: process.env.SECRET_KEY_JWT,

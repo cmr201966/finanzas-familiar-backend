@@ -19,6 +19,6 @@ app.use('/api/users', UsersRouter);
 
 initTables()
 
-app.listen(config.db.port, () => {
-  console.log(`Servidor corriendo en http://localhost:${config.db.port}`);
+app.listen(config.server.port, () => {
+  console.log(`Servidor corriendo en http://localhost:${config.server.port}`);
 });
