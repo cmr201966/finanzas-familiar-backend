@@ -7,6 +7,43 @@ import { Config } from '../config.js';
 
 export const AuthRouter = Router();
 
+
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Autenticación de usuarios
+ */
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Iniciar sesión
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Autenticación exitosa
+ *       401:
+ *         description: Contraseña incorrecta
+ *       500:
+ *         description: Error del servidor
+ */
+
 AuthRouter.post('/login', (req, res) => {
     const { email, password } = req.body;
 
