@@ -1,5 +1,5 @@
-const { db } = require('./database');
-const bcrypt = require('bcrypt');
+import { db } from './database';
+import { hashSync } from 'bcrypt';
 
 function seedDatabase() {
     db.serialize(() => {
@@ -13,7 +13,7 @@ function seedDatabase() {
         ];
 
         const hashedUsers = users.map((user) => {
-            return [user[0], user[1], bcrypt.hashSync(user[2], 10), user[3]];
+            return [user[0], user[1], hashSync(user[2], 10), user[3]];
         });
 
         hashedUsers.forEach((user, index) => {
