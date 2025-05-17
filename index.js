@@ -1,4 +1,5 @@
 import express, { json } from 'express';
+import cors from 'cors';
 
 import { Config } from './config.js';
 
@@ -8,7 +9,7 @@ import { UsersRouter } from './routes/users.js';
 import { AuthRouter } from './routes/auth.js';
 
 import { initTables } from './db/database.js';
-import { seedDatabase } from './db/seed.js';
+// import { seedDatabase } from './db/seed.js';
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
@@ -17,13 +18,16 @@ import { swaggerOptions } from './swaggerOptions.js';
 const app = express();
 
 app.use(json());
+app.use(cors({
+  origin: "*",
+}));
 
 app.use('/api/auth', AuthRouter);
 app.use('/api/expenses', ExpenseRouter);
 app.use('/api/users', UsersRouter);
 
-//initTables()
-seedDatabase()
+initTables()
+// seedDatabase()
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 

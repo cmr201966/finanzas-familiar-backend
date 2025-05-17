@@ -111,7 +111,7 @@ AuthRouter.post('/register', (req, res) => {
 
             const newUser = { name, email, password: hash, phone };
 
-            createUser(newUser, (err, user) => {
+            UsersModel.createUser(newUser, (err, user) => {
                 if (err) return res.status(500).send(err);
 
                 const token = jwt.sign({ id: user.id, name: user.name }, Config.secret_key_jwt, {

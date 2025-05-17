@@ -6,7 +6,6 @@ export function seedDatabase() {
         // Usuarios
         const users = [
             ['Juan Pérez', 'juan@example.com', '1234secure', '+341234567891'],
-//            ['cmr', 'cmr@example.com', '1235', '52675359'],
             ['María García', 'maria@example.com', 'abcd1234', '+341112223332'],
             ['Carlos López', 'carlos@example.com', 'passw0rd', '+341998877663'],
             ['Lucía Torres', 'lucia@example.com', 'securepass', '+346667778884'],
