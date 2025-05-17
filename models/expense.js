@@ -1,6 +1,6 @@
-const db = require('../db/database');
+import { db } from '../db/database.js';
 
-const Expense = {
+export const ExpenseModel = {
   create: (expense, callback) => {
     const { amount, description, date } = expense;
     db.run(
@@ -30,4 +30,3 @@ const Expense = {
   },
 };
 
-module.exports = Expense;
