@@ -1,4 +1,5 @@
 const { db } = require('./database');
+const bcrypt = require('bcrypt');
 
 function seedDatabase() {
     db.serialize(() => {
@@ -11,7 +12,11 @@ function seedDatabase() {
             ['Ana Martínez', 'ana@example.com', 'ana123456', '+34666111222'],
         ];
 
-        users.forEach((user, index) => {
+        const hashedUsers = users.map((user) => {
+            return [user[0], user[1], bcrypt.hashSync(user[2], 10), user[3]];
+        });
+
+        hashedUsers.forEach((user, index) => {
             db.run(`INSERT INTO users (name, email, password, phone) VALUES (?, ?, ?, ?)`, user, function (err) {
                 if (err) return console.error(`❌ Error insertando usuario ${user[0]}:`, err.message);
                 const userId = this.lastID;
@@ -48,6 +53,8 @@ function seedDatabase() {
             });
         });
     });
+
+    console.log("Todos los datos se han insertado correctamente");
 }
 
 seedDatabase();
