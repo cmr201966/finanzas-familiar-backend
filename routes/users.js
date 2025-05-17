@@ -33,6 +33,30 @@ UsersRouter.get('/', authMiddleware, (req, res) => {
     })
 })
 
+
+
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   get:
+ *     summary: Obtener un usuario por ID
+ *     tags: [Users]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del usuario
+ *     responses:
+ *       200:
+ *         description: Información del usuario
+ *       404:
+ *         description: Usuario no encontrado
+ *       500:
+ *         description: Error del servidor
+ */
+
 UsersRouter.get('/:id', authMiddleware, (req, res) => {
     const { id } = req.params
     UsersModel.getUserById(id, (err, user) => {
