@@ -1,8 +1,7 @@
 import sqlite3 from 'sqlite3';
-import { join } from 'path';
-import { cwd } from 'process';
+import { Config } from '../config.js';
 
-export const db = new sqlite3.Database(join(cwd(), '/db/finanzas.db'), (err) => {
+export const db = new sqlite3.Database(Config.db.path, (err) => {
   if (err) return console.error(err.message);
   console.log('Conectado a la base de datos SQLite.');
 });

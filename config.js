@@ -1,8 +1,13 @@
 import { config } from 'dotenv'
+import { join } from 'path';
+import { cwd } from 'process';
 
 config()
 
-export const config = {
+export const Config = {
+    db: {
+        path: join(cwd(), '/db/finanzas.db')
+    },
     server: {
         port: process.env.PORT,
     },

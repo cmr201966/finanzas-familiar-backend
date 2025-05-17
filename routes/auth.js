@@ -3,7 +3,7 @@ import { hash, compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 import { UsersModel } from '../models/users.js';
-import { config } from '../config.js';
+import { Config } from '../config.js';
 
 export const AuthRouter = Router();
 
@@ -18,7 +18,7 @@ AuthRouter.post('/login', (req, res) => {
 
             if (!isMatch) return res.status(401).json({ error: 'Contraseña incorrecta' });
 
-            const token = jwt.sign({ id: user.id, name: user.name }, config.secret_key_jwt, {
+            const token = jwt.sign({ id: user.id, name: user.name }, Config.secret_key_jwt, {
                 expiresIn: '1h',
             });
             res.json({ token });
@@ -41,7 +41,7 @@ AuthRouter.post('/register', (req, res) => {
             createUser(newUser, (err, user) => {
                 if (err) return res.status(500).send(err);
 
-                const token = jwt.sign({ id: user.id, name: user.name }, config.secret_key_jwt, {
+                const token = jwt.sign({ id: user.id, name: user.name }, Config.secret_key_jwt, {
                     expiresIn: '1h',
                 });
                 res.json({ token });

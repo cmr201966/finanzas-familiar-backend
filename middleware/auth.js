@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import { config } from '../config.js';
+import { Config } from '../config.js';
 
 export default function authMiddleware(req, res, next) {
     if (!req.headers.authorization) {
@@ -18,7 +18,7 @@ export default function authMiddleware(req, res, next) {
     }
 
     try {
-        const decoded = jwt.verify(token, config.secret_key_jwt);
+        const decoded = jwt.verify(token, Config.secret_key_jwt);
         req.user = decoded;
         console.log(req.user)
         next();

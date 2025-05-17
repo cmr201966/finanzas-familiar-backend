@@ -1,6 +1,6 @@
 import express, { json } from 'express';
 
-import { config } from './config.js';
+import { Config } from './config.js';
 
 // Routes
 import { ExpenseRouter } from './routes/expenses.js';
@@ -19,6 +19,6 @@ app.use('/api/users', UsersRouter);
 
 initTables()
 
-app.listen(config.server.port, () => {
-  console.log(`Servidor corriendo en http://localhost:${config.server.port}`);
+app.listen(Config.server.port, () => {
+  console.log(`Servidor corriendo en http://localhost:${Config.server.port}`);
 });
