@@ -95,6 +95,26 @@ ExpenseRouter.put('/:id', (req, res) => {
 });
 
 
+/**
+ * @swagger
+ * /api/expenses/{id}:
+ *   delete:
+ *     summary: Eliminar un gasto
+ *     tags: [Expenses]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID del gasto
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Gasto eliminado
+ *       500:
+ *         description: Error del servidor
+ */
+
 // Eliminar gasto
 ExpenseRouter.delete('/:id', (req, res) => {
   ExpenseModel.delete(req.params.id, (err, changes) => {
