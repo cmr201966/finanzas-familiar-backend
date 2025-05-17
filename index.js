@@ -9,6 +9,10 @@ import { AuthRouter } from './routes/auth.js';
 
 import { initTables } from './db/database.js';
 
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import { swaggerOptions } from './swaggerOptions.js';
+
 const app = express();
 
 app.use(json());
