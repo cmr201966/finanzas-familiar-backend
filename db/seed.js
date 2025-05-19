@@ -22,8 +22,8 @@ export function seedDatabase() {
                 const userId = this.lastID;
 
                 // Cuentas
-                db.run(`INSERT INTO accounts (name, type, initial_balance, user_id) VALUES (?, ?, ?, ?)`, [`Cuenta Efectivo ${index + 1}`, 'efectivo', 500 + index * 100, userId]);
-                db.run(`INSERT INTO accounts (name, type, initial_balance, user_id) VALUES (?, ?, ?, ?)`, [`Cuenta Banco ${index + 1}`, 'banco', 1000 + index * 150, userId]);
+                db.run(`INSERT INTO accounts (name, type, bank, initial_balance, user_id) VALUES (?, ?, ?, ?, ?)`, [`Cuenta Efectivo ${index + 1}`, 'efectivo', "BPA", 500 + index * 100, userId]);
+                db.run(`INSERT INTO accounts (name, type, bank, initial_balance, user_id) VALUES (?, ?, ?, ?, ?)`, [`Cuenta Banco ${index + 1}`, 'banco', "BANDEC", 1000 + index * 150, userId]);
 
                 // Categorías
                 db.run(`INSERT INTO categories (name, type, user_id) VALUES (?, ?, ?)`, ['Sueldo', 'income', userId]);
@@ -53,8 +53,7 @@ export function seedDatabase() {
             });
         });
     });
-
-    console.log("Todos los datos se han insertado correctamente");
 }
 
 seedDatabase();
+console.log("Todos los datos se han insertado correctamente");
