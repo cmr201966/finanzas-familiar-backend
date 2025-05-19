@@ -1,15 +1,38 @@
-const express = require('express');
+import express, { json } from 'express';
+import cors from 'cors';
+
+import { Config } from './config.js';
+
+// Routes
+import { ExpenseRouter } from './routes/expenses.js';
+import { UsersRouter } from './routes/users.js';
+import { AuthRouter } from './routes/auth.js';
+
+import { initTables } from './db/database.js';
+// import { seedDatabase } from './db/seed.js';
+
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import { swaggerOptions } from './swaggerOptions.js';
+
 const app = express();
-const expensesRoutes = require('./routes/expenses');
-const { initTables } = require('./db/database');
 
-app.use(express.json());
+app.use(json());
+app.use(cors({
+  origin: "*",
+}));
 
-app.use('/api/expenses', expensesRoutes);
+app.use('/api/auth', AuthRouter);
+app.use('/api/expenses', ExpenseRouter);
+app.use('/api/users', UsersRouter);
 
 initTables()
+// seedDatabase()
 
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.listen(Config.server.port, () => {
+  console.log(`Servidor corriendo en http://localhost:${Config.server.port}`);
 });
