@@ -5,6 +5,9 @@ import jwt from 'jsonwebtoken';
 import { UsersModel } from '../models/users.js';
 import { Config } from '../config.js';
 
+// Helpers
+import { resSuccess, resError } from '../helpers/response.js';
+
 export const AuthRouter = Router();
 
 
@@ -48,17 +51,19 @@ AuthRouter.post('/login', (req, res) => {
     const { email, password } = req.body;
 
     UsersModel.getUserByEmail(email, (err, user) => {
-        if (err) return res.status(500).send(err);
+        if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+        if (!user) return resError(res, { status: 401, message: 'Credenciales incorrectas' });
 
         compare(password, user.password, (err, isMatch) => {
-            if (err) return res.status(500).send(err);
+            if (err) return resError(res, { status: 500, message: 'Error del servidor' });
 
-            if (!isMatch) return res.status(401).json({ error: 'Contraseña incorrecta' });
+            if (!isMatch) return resError(res, { status: 401, message: 'Credenciales incorrectas' });
 
             const token = jwt.sign({ id: user.id, name: user.name }, Config.secret_key_jwt, {
                 expiresIn: '1h',
             });
-            res.json({ token });
+
+            return resSuccess(res, { message: 'Autenticación exitosa', data: { token } });
         });
     });
 });
@@ -103,21 +108,21 @@ AuthRouter.post('/register', (req, res) => {
     const { name, email, password, phone } = req.body;
 
     UsersModel.getUserByEmail(email, (err, user) => {
-        if (err) return res.status(500).send(err);
-        if (user) return res.status(400).json({ error: 'El usuario ya existe' });
+        if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+        if (user) return resError(res, { status: 400, message: 'Usuario ya existe' });
 
         hash(password, 10, (err, hash) => {
-            if (err) return res.status(500).send(err);
+            if (err) return resError(res, { status: 500, message: 'Error del servidor' });
 
             const newUser = { name, email, password: hash, phone };
 
             UsersModel.createUser(newUser, (err, user) => {
-                if (err) return res.status(500).send(err);
+                if (err) return resError(res, { status: 500, message: 'Error del servidor' });
 
                 const token = jwt.sign({ id: user.id, name: user.name }, Config.secret_key_jwt, {
                     expiresIn: '1h',
                 });
-                res.json({ token });
+                return resSuccess(res, { message: 'Registro exitoso', data: { token } });
             });
         });
     });
