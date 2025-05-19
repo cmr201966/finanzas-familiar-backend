@@ -7,6 +7,7 @@ import { Config } from './config.js';
 import { ExpenseRouter } from './routes/expenses.js';
 import { UsersRouter } from './routes/users.js';
 import { AuthRouter } from './routes/auth.js';
+import { NotFoundRouter } from './routes/404.js';
 
 import { initTables } from './db/database.js';
 // import { seedDatabase } from './db/seed.js';
@@ -25,6 +26,7 @@ app.use(cors({
 app.use('/api/auth', AuthRouter);
 app.use('/api/expenses', ExpenseRouter);
 app.use('/api/users', UsersRouter);
+app.use(NotFoundRouter)
 
 initTables()
 // seedDatabase()
