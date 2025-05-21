@@ -8,9 +8,15 @@ import { Config } from '../config.js';
 // Helpers
 import { resSuccess, resError } from '../helpers/response.js';
 
+// Schemas
+import { LoginSchema, RegisterSchema } from '../schemas/auth.js';
+
+// Middleware
+import validateSchema from '../middleware/validator.js';
+
 export const AuthRouter = Router();
 
-AuthRouter.post('/login', (req, res) => {
+AuthRouter.post('/login', validateSchema(LoginSchema), (req, res) => {
     const { email, password } = req.body;
 
     UsersModel.getUserByEmail(email, (err, user) => {
@@ -31,7 +37,7 @@ AuthRouter.post('/login', (req, res) => {
     });
 });
 
-AuthRouter.post('/register', (req, res) => {
+AuthRouter.post('/register', validateSchema(RegisterSchema), (req, res) => {
     const { name, email, password, phone } = req.body;
 
     UsersModel.getUserByEmail(email, (err, user) => {

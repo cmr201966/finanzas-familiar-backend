@@ -6,6 +6,10 @@ import { ExpenseModel } from '../models/expense.js';
 // Helpers
 import { resSuccess, resError } from '../helpers/response.js';
 
+// Validators
+import { ExpenseSchema } from '../schemas/expenses.js';
+import validator from '../middleware/validator.js';
+
 // Router
 export const ExpenseRouter = Router();
 
@@ -28,7 +32,7 @@ ExpenseRouter.get('/:id', (req, res) => {
 });
 
 // Crear gasto
-ExpenseRouter.post('/', (req, res) => {
+ExpenseRouter.post('/', validator(ExpenseSchema), (req, res) => {
   ExpenseModel.create(req.body, (err, id) => {
     if (err) return resError(res, { status: 500, message: 'Error del servidor' });
     return resSuccess(res, { message: 'Gasto creado exitosamente', data: { id } });
