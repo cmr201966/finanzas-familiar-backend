@@ -1,0 +1,101 @@
+{
+    "LoginInput": {
+        "type": "object",
+        "properties": {
+            "email": {
+                "type": "string",
+                "format": "email"
+            },
+            "password": {
+                "type": "string",
+                "format": "password"
+            }
+        },
+        "required": [
+            "email",
+            "password"
+        ]
+    },
+    "RegisterInput": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "email": {
+                "type": "string",
+                "format": "email"
+            },
+            "password": {
+                "type": "string",
+                "format": "password"
+            },
+            "phone": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "name",
+            "email",
+            "password",
+            "phone"
+        ]
+    },
+    "ResponseSuccess": {
+        "type": "object",
+        "properties": {
+            "message": {
+                "type": "string"
+            },
+            "data": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "ResponseError": {
+        "type": "object",
+        "properties": {
+            "message": {
+                "type": "string"
+            }
+        }
+    },
+    "ExpenseInput": {
+        "type": "object",
+        "properties": {
+            "concept": {
+                "type": "string",
+                "example": "Compra de materiales"
+            },
+            "amount": {
+                "type": "number",
+                "format": "float",
+                "example": 150.75
+            },
+            "date": {
+                "type": "string",
+                "format": "date",
+                "example": "2025-05-19"
+            },
+            "category": {
+                "type": "string",
+                "example": "Oficina"
+            },
+            "userId": {
+                "type": "integer",
+                "example": 3
+            }
+        },
+        "required": [
+            "concept",
+            "amount",
+            "date",
+            "userId"
+        ]
+    }
+}

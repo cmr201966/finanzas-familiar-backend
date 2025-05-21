@@ -1,6 +1,23 @@
 import { db } from '../db/database.js';
 
 export const ExpenseModel = {
+  get: (callback) => {
+    db.all(
+      `SELECT * FROM transactions WHERE type = 'expense' ORDER BY date DESC`,
+      function (err, rows) {
+        callback(err, rows);
+      }
+    );
+  },
+  getById: (id, callback) => {
+    db.get(
+      `SELECT * FROM transactions WHERE id = ? AND type = 'expense'`,
+      [id],
+      function (err, row) {
+        callback(err, row);
+      }
+    );
+  },
   create: (expense, callback) => {
     const { amount, description, date } = expense;
     db.run(

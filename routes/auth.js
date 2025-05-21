@@ -10,43 +10,6 @@ import { resSuccess, resError } from '../helpers/response.js';
 
 export const AuthRouter = Router();
 
-
-/**
- * @swagger
- * tags:
- *   name: Auth
- *   description: Autenticación de usuarios
- */
-
-/**
- * @swagger
- * /api/auth/login:
- *   post:
- *     summary: Iniciar sesión
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - email
- *               - password
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *     responses:
- *       200:
- *         description: Autenticación exitosa
- *       401:
- *         description: Contraseña incorrecta
- *       500:
- *         description: Error del servidor
- */
-
 AuthRouter.post('/login', (req, res) => {
     const { email, password } = req.body;
 
@@ -67,42 +30,6 @@ AuthRouter.post('/login', (req, res) => {
         });
     });
 });
-
-
-/**
- * @swagger
- * /api/auth/register:
- *   post:
- *     summary: Registrar nuevo usuario
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - name
- *               - email
- *               - password
- *               - phone
- *             properties:
- *               name:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *               phone:
- *                 type: string
- *     responses:
- *       200:
- *         description: Registro exitoso
- *       400:
- *         description: Usuario ya existe
- *       500:
- *         description: Error del servidor
- */
 
 AuthRouter.post('/register', (req, res) => {
     const { name, email, password, phone } = req.body;

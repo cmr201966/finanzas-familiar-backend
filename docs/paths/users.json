@@ -1,0 +1,83 @@
+{
+    "/users": {
+        "get": {
+            "summary": "Obtener todos los usuarios",
+            "tags": [
+                "Users"
+            ],
+            "responses": {
+                "200": {
+                    "description": "Lista de usuarios",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseSuccess"
+                            }
+                        }
+                    }
+                },
+                "500": {
+                    "description": "Error del servidor",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseError"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/users/{id}": {
+        "get": {
+            "summary": "Obtener un usuario por ID",
+            "tags": [
+                "Users"
+            ],
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID del usuario",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Información del usuario",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseSuccess"
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Usuario no encontrado",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseError"
+                            }
+                        }
+                    }
+                },
+                "500": {
+                    "description": "Error del servidor",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseError"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
