@@ -26,9 +26,9 @@ export function seedDatabase() {
                 db.run(`INSERT INTO accounts (name, type, bank, initial_balance, user_id) VALUES (?, ?, ?, ?, ?)`, [`Cuenta Banco ${index + 1}`, 'banco', "BANDEC", 1000 + index * 150, userId]);
 
                 // Categorías
-                db.run(`INSERT INTO categories (name, type, user_id) VALUES (?, ?, ?)`, ['Sueldo', 'income', userId]);
-                db.run(`INSERT INTO categories (name, type, user_id) VALUES (?, ?, ?)`, ['Comida', 'expense', userId]);
-                db.run(`INSERT INTO categories (name, type, user_id) VALUES (?, ?, ?)`, ['Transporte', 'expense', userId]);
+                db.run(`INSERT INTO categories (name, type, description ,user_id) VALUES (?, ?, ?)`, ['Sueldo', 'income', "El sueldo de la empresa", userId]);
+                db.run(`INSERT INTO categories (name, type, description ,user_id) VALUES (?, ?, ?)`, ['Comida', 'expense', "Gastos de comida", userId]);
+                db.run(`INSERT INTO categories (name, type, description ,user_id) VALUES (?, ?, ?)`, ['Transporte', 'expense', "Gastos de transporte", userId]);
 
                 // Transacciones
                 db.run(`INSERT INTO transactions (amount, type, description, date, category_id, account_id, user_id) 

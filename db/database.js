@@ -40,6 +40,7 @@ export function initTables() {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       type TEXT CHECK (type IN ('income', 'expense')) NOT NULL,
+      description TEXT,
       user_id INTEGER,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(id)
