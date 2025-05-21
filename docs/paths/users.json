@@ -2,6 +2,11 @@
     "/users": {
         "get": {
             "summary": "Obtener todos los usuarios",
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
             "tags": [
                 "Users"
             ],
@@ -32,6 +37,11 @@
     "/users/{id}": {
         "get": {
             "summary": "Obtener un usuario por ID",
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
             "tags": [
                 "Users"
             ],
