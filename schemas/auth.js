@@ -5,12 +5,12 @@ z.config(es())
 
 export const LoginSchema = z.object({
     email: z.email(),
-    password: z.string().min(8).max(50),
+    password: z.string(),
 })
 
 export const RegisterSchema = z.object({
     email: z.email(),
-    password: z.string().min(8).max(50),
-    name: z.string().min(3).max(50),
-    phone: z.string().min(10).max(15),
+    password: z.string(),
+    name: z.string(),
+    phone: z.string(),
 })
