@@ -19,7 +19,7 @@ const paths = {
 };
 
 export const swaggerDoc = {
-  openapi: '3.0.4',
+  openapi: '3.1.0',
   info: {
     title: 'Finanzas Familiar API',
     version: '1.0.0',

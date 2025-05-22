@@ -1,45 +1,82 @@
 {
     "LoginInput": {
         "type": "object",
+        "oneOf": [
+            {
+                "required": [
+                    "email",
+                    "password"
+                ]
+            },
+            {
+                "required": [
+                    "phone",
+                    "password"
+                ]
+            },
+            {
+                "required": [
+                    "username",
+                    "password"
+                ]
+            }
+        ],
         "properties": {
             "email": {
                 "type": "string",
                 "format": "email"
+            },
+            "phone": {
+                "type": "string"
+            },
+            "username": {
+                "type": "string"
             },
             "password": {
                 "type": "string",
                 "format": "password"
             }
         },
-        "required": [
-            "email",
-            "password"
-        ]
+        "description": "Solo uno de los siguientes campos debe estar presente junto con la contraseña: email, phone o username"
     },
     "RegisterInput": {
         "type": "object",
+        "oneOf": [
+            {
+                "required": [
+                    "email"
+                ]
+            },
+            {
+                "required": [
+                    "phone"
+                ]
+            }
+        ],
         "properties": {
             "name": {
                 "type": "string"
-            },
-            "email": {
-                "type": "string",
-                "format": "email"
             },
             "password": {
                 "type": "string",
                 "format": "password"
             },
+            "email": {
+                "type": "string",
+                "format": "email"
+            },
             "phone": {
+                "type": "string"
+            },
+            "username": {
                 "type": "string"
             }
         },
         "required": [
             "name",
-            "email",
-            "password",
-            "phone"
-        ]
+            "password"
+        ],
+        "description": "Debes proporcionar solo uno entre: email o phone"
     },
     "ResponseSuccess": {
         "type": "object",

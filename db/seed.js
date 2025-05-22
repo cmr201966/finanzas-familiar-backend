@@ -5,19 +5,19 @@ export function seedDatabase() {
     db.serialize(() => {
         // Usuarios
         const users = [
-            ['Juan Pérez', 'juan@example.com', '1234secure', '+341234567891'],
-            ['María García', 'maria@example.com', 'abcd1234', '+341112223332'],
-            ['Carlos López', 'carlos@example.com', 'passw0rd', '+341998877663'],
-            ['Lucía Torres', 'lucia@example.com', 'securepass', '+346667778884'],
-            ['Ana Martínez', 'ana@example.com', 'ana123456', '+346661112225'],
+            ['juancito', 'Juan Pérez', 'juan@example.com', '1234secure', '+344334567891'],
+            ['lucia', 'Lucia Pérez', 'lucia@example.com', 'passw0rd', '+346767778884'],
+            ['ana', 'Ana Martínez', 'ana@example.com', 'ana123456', '+346663112225'],
+            ['luis', 'Luis Pérez', 'luis@example.com', '1234secure', '+341235537891'],
+            ['Angel', 'Angel Pérez', 'angel@example.com', '1234secure', '+344234567893'],
         ];
 
         const hashedUsers = users.map((user) => {
-            return [user[0], user[1], hashSync(user[2], 10), user[3]];
+            return [user[0], user[1], user[2], hashSync(user[3], 10), user[4]];
         });
 
         hashedUsers.forEach((user, index) => {
-            db.run(`INSERT INTO users (name, email, password, phone) VALUES (?, ?, ?, ?)`, user, function (err) {
+            db.run(`INSERT INTO users (username, name, email, password, phone) VALUES (?, ?, ?, ?, ?)`, user, function (err) {
                 if (err) return console.error(`❌ Error insertando usuario ${user[0]}:`, err.message);
                 const userId = this.lastID;
 
@@ -26,9 +26,9 @@ export function seedDatabase() {
                 db.run(`INSERT INTO accounts (name, type, bank, initial_balance, user_id) VALUES (?, ?, ?, ?, ?)`, [`Cuenta Banco ${index + 1}`, 'banco', "BANDEC", 1000 + index * 150, userId]);
 
                 // Categorías
-                db.run(`INSERT INTO categories (name, type, description ,user_id) VALUES (?, ?, ?)`, ['Sueldo', 'income', "El sueldo de la empresa", userId]);
-                db.run(`INSERT INTO categories (name, type, description ,user_id) VALUES (?, ?, ?)`, ['Comida', 'expense', "Gastos de comida", userId]);
-                db.run(`INSERT INTO categories (name, type, description ,user_id) VALUES (?, ?, ?)`, ['Transporte', 'expense', "Gastos de transporte", userId]);
+                db.run(`INSERT INTO categories (name, type, description ,user_id) VALUES (?, ?, ?, ?)`, ['Sueldo', 'income', "El sueldo de la empresa", userId]);
+                db.run(`INSERT INTO categories (name, type, description ,user_id) VALUES (?, ?, ?, ?)`, ['Comida', 'expense', "Gastos de comida", userId]);
+                db.run(`INSERT INTO categories (name, type, description ,user_id) VALUES (?, ?, ?, ?)`, ['Transporte', 'expense', "Gastos de transporte", userId]);
 
                 // Transacciones
                 db.run(`INSERT INTO transactions (amount, type, description, date, category_id, account_id, user_id) 

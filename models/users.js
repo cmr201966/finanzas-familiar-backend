@@ -2,11 +2,10 @@ import { db } from '../db/database.js';
 
 export const UsersModel = {
     createUser: (user, callback) => {
-        db.run('INSERT INTO users (name, email, password, phone) VALUES (?, ?, ?,?)', [user.name, user.email, user.password, user.phone], function (err) {
+        db.run('INSERT INTO users (username, name, email, password, phone) VALUES (?, ?, ?, ?, ?)', [user.username, user.name, user.email, user.password, user.phone], function (err) {
             const newUser = { id: this.lastID, ...user };
             callback(err, newUser);
         });
-
     },
     getUsers: (callback) => {
         db.all('SELECT * FROM users', function (err, rows) {
@@ -25,6 +24,11 @@ export const UsersModel = {
     },
     getUserByPhone: (phone, callback) => {
         db.get(`SELECT * FROM users WHERE phone = ?`, [phone], function (err, row) {
+            callback(err, row);
+        });
+    },
+    getUserByUsername: (username, callback) => {
+        db.get(`SELECT * FROM users WHERE username = ?`, [username], function (err, row) {
             callback(err, row);
         });
     },
