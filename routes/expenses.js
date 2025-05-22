@@ -1,125 +1,57 @@
 import { Router } from 'express';
 
+// Models
 import { ExpenseModel } from '../models/expense.js';
 
+// Helpers
+import { resSuccess, resError } from '../helpers/response.js';
+
+// Validators
+import { ExpenseSchema } from '../schemas/expenses.js';
+import validator from '../middleware/validator.js';
+
+// Router
 export const ExpenseRouter = Router();
 
-
-/**
- * @swagger
- * tags:
- *   name: Expenses
- *   description: Gestión de gastos
- */
-
-/**
- * @swagger
- * /api/expenses:
- *   post:
- *     summary: Crear un nuevo gasto
- *     tags: [Expenses]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - amount
- *               - description
- *               - date
- *             properties:
- *               amount:
- *                 type: number
- *               description:
- *                 type: string
- *               date:
- *                 type: string
- *                 format: date
- *     responses:
- *       201:
- *         description: Gasto creado exitosamente
- *       500:
- *         description: Error del servidor
- */
-
-// Crear gasto
-ExpenseRouter.post('/', (req, res) => {
-  ExpenseModel.create(req.body, (err, id) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.status(201).json({ id });
+// Obtener todos los gastos
+ExpenseRouter.get('/', (req, res) => {
+  ExpenseModel.get((err, expenses) => {
+    if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+    return resSuccess(res, { message: 'Gastos obtenidos', data: { expenses: expenses || [] } });
   });
 });
 
+// Obtener un gasto por ID
+ExpenseRouter.get('/:id', (req, res) => {
+  const { id } = req.params
 
-/**
- * @swagger
- * /api/expenses/{id}:
- *   put:
- *     summary: Actualizar un gasto existente
- *     tags: [Expenses]
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: ID del gasto
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               amount:
- *                 type: number
- *               description:
- *                 type: string
- *               date:
- *                 type: string
- *                 format: date
- *     responses:
- *       200:
- *         description: Gasto actualizado
- *       500:
- *         description: Error del servidor
- */
+  ExpenseModel.getById(id, (err, expense) => {
+    if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+    return resSuccess(res, { message: 'Gasto obtenido', data: { expense: expense || [] } });
+  });
+});
+
+// Crear gasto
+ExpenseRouter.post('/', validator(ExpenseSchema), (req, res) => {
+  ExpenseModel.create(req.body, (err, id) => {
+    if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+    return resSuccess(res, { message: 'Gasto creado exitosamente', data: { id } });
+  });
+});
 
 // Modificar gasto
 ExpenseRouter.put('/:id', (req, res) => {
   ExpenseModel.update(req.params.id, req.body, (err, changes) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ updated: changes });
+    if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+    return resSuccess(res, { message: 'Gasto actualizado', data: { changes } });
   });
 });
-
-
-/**
- * @swagger
- * /api/expenses/{id}:
- *   delete:
- *     summary: Eliminar un gasto
- *     tags: [Expenses]
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: ID del gasto
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Gasto eliminado
- *       500:
- *         description: Error del servidor
- */
 
 // Eliminar gasto
 ExpenseRouter.delete('/:id', (req, res) => {
   ExpenseModel.delete(req.params.id, (err, changes) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ deleted: changes });
+    if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+    return resSuccess(res, { message: 'Gasto eliminado', data: { changes } });
   });
 });
 

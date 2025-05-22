@@ -12,9 +12,10 @@ export function initTables() {
     db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username TEXT UNIQUE NOT NULL,
       name TEXT NOT NULL,
-      email TEXT UNIQUE NOT NULL,
-      phone TEXT UNIQUE NOT NULL,
+      email TEXT UNIQUE,
+      phone TEXT UNIQUE,
       password TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
@@ -25,7 +26,8 @@ export function initTables() {
     CREATE TABLE IF NOT EXISTS accounts (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      type TEXT CHECK (type IN ('efectivo', 'banco', 'tarjeta')) NOT NULL,
+      type TEXT NOT NULL CHECK (type IN ('efectivo', 'banco', 'tarjeta')),
+      bank TEXT NOT NULL CHECK (bank IN ('BPA', 'BANDEC', 'METROPOLITANO')),
       initial_balance DECIMAL(10, 2) DEFAULT 0.0,
       user_id INTEGER,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -39,6 +41,7 @@ export function initTables() {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       type TEXT CHECK (type IN ('income', 'expense')) NOT NULL,
+      description TEXT,
       user_id INTEGER,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(id)

@@ -3,5 +3,6 @@ node_modules
 Documentos
 .DS_Store
 **/*.db
+**/*.db-journal
 bun.lock
 .env

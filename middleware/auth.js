@@ -2,28 +2,30 @@ import jwt from 'jsonwebtoken';
 
 import { Config } from '../config.js';
 
+// Helpers
+import { resSuccess, resError } from '../helpers/response.js';
+
 export default function authMiddleware(req, res, next) {
     if (!req.headers.authorization) {
-        return res.status(401).json({ error: 'No hay cabecera de autorización' });
+        return resError(res, { status: 401, message: 'No hay token', details: { message: "Debes autenticarte para acceder a esta ruta" } });
     }
 
     const [type, token] = req.headers.authorization.split(' ');
 
     if (type !== 'Bearer') {
-        return res.status(401).json({ error: 'Invalido tipo de token' });
+        return resError(res, { status: 401, message: 'No hay token', details: { message: "Debes autenticarte para acceder a esta ruta" } });
     }
 
     if (!token || token.length <= 0) {
-        return res.status(401).json({ error: 'No hay token' });
+        return resError(res, { status: 401, message: 'No hay token', details: { message: "Debes autenticarte para acceder a esta ruta" } });
     }
 
     try {
         const decoded = jwt.verify(token, Config.secret_key_jwt);
         req.user = decoded;
-        console.log(req.user)
         next();
     } catch (err) {
-        return res.status(401).json({ error: 'Token no válido' });
+        return resError(res, { status: 401, message: 'Token no válido', details: { message: "El token proporcionado no es válido" } });
     }
 }
 
