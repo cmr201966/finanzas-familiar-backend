@@ -61,19 +61,24 @@ AuthRouter.post('/register', validateSchema(RegisterSchema), (req, res) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         if (user) return resError(res, { status: 400, message: 'Ya existe un usuario con esas credenciales' });
 
-        hash(password, 10, (err, hash) => {
+        UsersModel.getUserByUsername(username, (err, user) => {
             if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+            if (user) return resError(res, { status: 400, message: 'Ya existe un usuario con esas credenciales' });
 
-            const newUser = { username, name, email, password: hash, phone };
-
-            UsersModel.createUser(newUser, (err, user) => {
+            hash(password, 10, (err, hash) => {
                 if (err) return resError(res, { status: 500, message: 'Error del servidor' });
 
-                const token = jwt.sign({ id: user.id, name: user.name }, Config.secret_key_jwt, {
-                    expiresIn: '1h',
+                const newUser = { username, name, email, password: hash, phone };
+
+                UsersModel.createUser(newUser, (err, user) => {
+                    if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+
+                    const token = jwt.sign({ id: user.id, name: user.name }, Config.secret_key_jwt, {
+                        expiresIn: '1h',
+                    });
+                    return resSuccess(res, { message: 'Registro exitoso', data: { token } });
                 });
-                return resSuccess(res, { message: 'Registro exitoso', data: { token } });
             });
-        });
+        })
     });
 })

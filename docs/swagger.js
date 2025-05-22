@@ -9,8 +9,8 @@ const expenses = JSON.parse(readFileSync(join(cwd(), './docs/paths/expenses.json
 const users = JSON.parse(readFileSync(join(cwd(), './docs/paths/users.json'), 'utf8'));
 const auth = JSON.parse(readFileSync(join(cwd(), './docs/paths/auth.json'), 'utf8'));
 
-// Schemas JSON
-const schemas = JSON.parse(readFileSync(join(cwd(), './docs/components/schemas.json'), 'utf8'));
+// Schemas 
+import { schemas } from './components/schemas.js';
 
 const paths = {
   ...auth,

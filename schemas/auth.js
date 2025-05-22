@@ -19,14 +19,6 @@ export const LoginSchema = z.object({
             path: ['email', 'phone', 'username'],
         });
     }
-
-    if (presentFields.length > 1) {
-        ctx.issues.push({
-            code: 'invalid_data',
-            message: 'Solo se permite un identificador: email, phone o username.',
-            path: ['email', 'phone', 'username'],
-        });
-    }
 });;
 
 export const RegisterSchema = z.object({
@@ -40,14 +32,6 @@ export const RegisterSchema = z.object({
         ctx.issues.push({
             code: 'invalid_data',
             message: 'Debes proporcionar un email o un teléfono.',
-            path: ['email', 'phone'],
-        });
-    }
-
-    if (ctx.value.email && ctx.value.phone) {
-        ctx.issues.push({
-            code: 'invalid_data',
-            message: 'Solo se permite email o teléfono, no ambos.',
             path: ['email', 'phone'],
         });
     }

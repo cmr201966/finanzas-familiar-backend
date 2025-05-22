@@ -39,7 +39,7 @@
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/ExpenseInput"
+                            "$ref": "#/components/schemas/ExpenseRequest"
                         }
                     }
                 }
@@ -130,7 +130,7 @@
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/ExpenseInput"
+                            "$ref": "#/components/schemas/ExpenseRequest"
                         }
                     }
                 }
