@@ -5,6 +5,7 @@ import { cwd } from 'process';
 // Leer archivos JSON
 const expenses = JSON.parse(readFileSync(join(cwd(), './docs/components/paths/expenses.json'), 'utf8'));
 const auth = JSON.parse(readFileSync(join(cwd(), './docs/components/paths/auth.json'), 'utf8'));
+const accounts = JSON.parse(readFileSync(join(cwd(), './docs/components/paths/accounts.json'), 'utf8'));
 
 // Definir esquemas base
 const baseSchemas = {
@@ -53,5 +54,6 @@ const baseSchemas = {
 export const schemas = {
     ...baseSchemas,
     ...expenses,
-    ...auth
+    ...auth,
+    ...accounts,
 };

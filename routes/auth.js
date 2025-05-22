@@ -51,7 +51,7 @@ AuthRouter.post('/register', validateSchema(RegisterSchema), (req, res) => {
 
             const newUser = { username, name, email, password: hash, phone };
 
-            UsersModel.createUser(newUser, (err, user) => {
+            UsersModel.create(newUser, (err, user) => {
                 if (err) return resError(res, { status: 500, message: 'Error del servidor' });
 
                 const token = jwt.sign({ id: user.id, name: user.name }, Config.secret_key_jwt, {

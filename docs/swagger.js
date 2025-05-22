@@ -8,6 +8,7 @@ import { cwd } from 'process';
 const expenses = JSON.parse(readFileSync(join(cwd(), './docs/paths/expenses.json'), 'utf8'));
 const users = JSON.parse(readFileSync(join(cwd(), './docs/paths/users.json'), 'utf8'));
 const auth = JSON.parse(readFileSync(join(cwd(), './docs/paths/auth.json'), 'utf8'));
+const accounts = JSON.parse(readFileSync(join(cwd(), './docs/paths/accounts.json'), 'utf8'));
 
 // Schemas 
 import { schemas } from './components/schemas.js';
@@ -16,6 +17,7 @@ const paths = {
   ...auth,
   ...users,
   ...expenses,
+  ...accounts,
 };
 
 export const swaggerDoc = {

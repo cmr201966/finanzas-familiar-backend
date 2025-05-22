@@ -1,13 +1,13 @@
 import { db } from '../db/database.js';
 
 export const UsersModel = {
-    createUser: (user, callback) => {
+    create: (user, callback) => {
         db.run('INSERT INTO users (username, name, email, password, phone) VALUES (?, ?, ?, ?, ?)', [user.username, user.name, user.email, user.password, user.phone], function (err) {
             const newUser = { id: this.lastID, ...user };
             callback(err, newUser);
         });
     },
-    getUsers: (callback) => {
+    get: (callback) => {
         db.all('SELECT * FROM users', function (err, rows) {
             callback(err, rows);
         });

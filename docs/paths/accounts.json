@@ -1,0 +1,201 @@
+{
+    "/accounts": {
+        "get": {
+            "summary": "Obtener todos las cuentas",
+            "tags": [
+                "Accounts"
+            ],
+            "responses": {
+                "200": {
+                    "description": "Cuentas obtenidas",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseSuccess"
+                            }
+                        }
+                    }
+                },
+                "500": {
+                    "description": "Error del servidor",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseError"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "post": {
+            "summary": "Crear cuenta",
+            "tags": [
+                "Accounts"
+            ],
+            "requestBody": {
+                "description": "Datos de la cuenta",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/AccountsRequest"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Cuenta creada exitosamente",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseSuccess"
+                            }
+                        }
+                    }
+                },
+                "500": {
+                    "description": "Error del servidor",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseError"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/accounts/{id}": {
+        "get": {
+            "summary": "Obtener una cuenta por ID",
+            "tags": [
+                "Accounts"
+            ],
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID de la cuenta",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Cuenta obtenida",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseSuccess"
+                            }
+                        }
+                    }
+                },
+                "500": {
+                    "description": "Error del servidor",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseError"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "put": {
+            "summary": "Modificar cuenta",
+            "tags": [
+                "Accounts"
+            ],
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID de la cuenta a modificar",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "requestBody": {
+                "description": "Datos actualizados de la cuenta",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/AccountsRequest"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Cuenta actualizada",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseSuccess"
+                            }
+                        }
+                    }
+                },
+                "500": {
+                    "description": "Error del servidor",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseError"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "delete": {
+            "summary": "Eliminar cuenta",
+            "tags": [
+                "Accounts"
+            ],
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID de la cuenta a eliminar",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Cuenta eliminada",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseSuccess"
+                            }
+                        }
+                    }
+                },
+                "500": {
+                    "description": "Error del servidor",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ResponseError"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }       
+}
