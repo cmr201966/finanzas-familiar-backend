@@ -32,6 +32,16 @@ export const UsersModel = {
             callback(err, row);
         });
     },
+    getUserForLogin: (user, callback) => {
+        db.get(`SELECT * FROM users WHERE (username = ? or email = ? or phone = ?)`, [user, user, user], function (err, row) {
+            callback(err, row);
+        });
+    },
+    getUserForRegister: ({ username, email, phone }, callback) => {
+        db.get(`SELECT * FROM users WHERE (username = ? or email = ? or phone = ?)`, [username, email, phone], function (err, row) {
+            callback(err, row);
+        });
+    }
 }
 
 
