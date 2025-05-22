@@ -19,6 +19,14 @@ export const LoginSchema = z.object({
             path: ['email', 'phone', 'username'],
         });
     }
+
+    if (presentFields.length > 1) {
+        ctx.issues.push({
+            code: 'invalid_data',
+            message: 'Debes proporcionar solo un email, un teléfono o un username.',
+            path: ['email', 'phone', 'username'],
+        });
+    }
 });;
 
 export const RegisterSchema = z.object({
