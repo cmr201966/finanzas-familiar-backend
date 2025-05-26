@@ -10,7 +10,7 @@
             "type": {
                 "type": "string",
                 "description": "Tipo de cuenta",
-                "example": "efectivo"
+                "example": "CUP"
             },
             "bank": {
                 "type": "string",

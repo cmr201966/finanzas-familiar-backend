@@ -12,12 +12,17 @@ import { AuthRouter } from './routes/auth.js';
 import { AccountsRouter } from './routes/accounts.js';
 import { NotFoundRouter } from './routes/404.js';
 
+// Middlewares
+import authMiddleware from './middleware/auth.js';
+
+// Database
 import { initTables } from './db/database.js';
 // import { seedDatabase } from './db/seed.js';
 
 import { Config } from './config.js';
 
 const app = express();
+app.disable('x-powered-by');
 
 app.use(json());
 app.use(cors({
@@ -28,9 +33,9 @@ app.use(cors({
 }));
 
 app.use('/api/auth', AuthRouter);
-app.use('/api/expenses', ExpenseRouter);
-app.use('/api/users', UsersRouter);
-app.use('/api/accounts', AccountsRouter);
+app.use('/api/expenses', authMiddleware, ExpenseRouter);
+app.use('/api/users', authMiddleware, UsersRouter);
+app.use('/api/accounts', authMiddleware, AccountsRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use(NotFoundRouter)
 

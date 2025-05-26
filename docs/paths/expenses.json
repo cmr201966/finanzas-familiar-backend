@@ -5,6 +5,11 @@
             "tags": [
                 "Expenses"
             ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
             "responses": {
                 "200": {
                     "description": "Gastos obtenidos",
@@ -32,6 +37,11 @@
             "summary": "Crear gasto",
             "tags": [
                 "Expenses"
+            ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
             ],
             "requestBody": {
                 "description": "Datos del gasto",
@@ -74,6 +84,11 @@
             "tags": [
                 "Expenses"
             ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
             "parameters": [
                 {
                     "name": "id",
@@ -112,6 +127,11 @@
             "summary": "Modificar gasto",
             "tags": [
                 "Expenses"
+            ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
             ],
             "parameters": [
                 {
@@ -162,6 +182,11 @@
             "summary": "Eliminar gasto",
             "tags": [
                 "Expenses"
+            ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
             ],
             "parameters": [
                 {

@@ -5,6 +5,11 @@
             "tags": [
                 "Accounts"
             ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
             "responses": {
                 "200": {
                     "description": "Cuentas obtenidas",
@@ -32,6 +37,11 @@
             "summary": "Crear cuenta",
             "tags": [
                 "Accounts"
+            ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
             ],
             "requestBody": {
                 "description": "Datos de la cuenta",
@@ -74,6 +84,11 @@
             "tags": [
                 "Accounts"
             ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
             "parameters": [
                 {
                     "name": "id",
@@ -112,6 +127,11 @@
             "summary": "Modificar cuenta",
             "tags": [
                 "Accounts"
+            ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
             ],
             "parameters": [
                 {
@@ -163,6 +183,11 @@
             "tags": [
                 "Accounts"
             ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
             "parameters": [
                 {
                     "name": "id",
@@ -197,5 +222,5 @@
                 }
             }
         }
-    }       
+    }
 }

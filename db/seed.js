@@ -22,8 +22,8 @@ export function seedDatabase() {
                 const userId = this.lastID;
 
                 // Cuentas
-                db.run(`INSERT INTO accounts (name, type, bank, initial_balance, user_id) VALUES (?, ?, ?, ?, ?)`, [`Cuenta Efectivo ${index + 1}`, 'efectivo', "BPA", 500 + index * 100, userId]);
-                db.run(`INSERT INTO accounts (name, type, bank, initial_balance, user_id) VALUES (?, ?, ?, ?, ?)`, [`Cuenta Banco ${index + 1}`, 'banco', "BANDEC", 1000 + index * 150, userId]);
+                db.run(`INSERT INTO accounts (name, type, bank, initial_balance, user_id) VALUES (?, ?, ?, ?, ?)`, [`Cuenta Efectivo ${index + 1}`, 'CUP', "BPA", 500 + index * 100, userId]);
+                db.run(`INSERT INTO accounts (name, type, bank, initial_balance, user_id) VALUES (?, ?, ?, ?, ?)`, [`Cuenta Banco ${index + 1}`, 'MLC', "BANDEC", 1000 + index * 150, userId]);
 
                 // Categorías
                 db.run(`INSERT INTO categories (name, type, description ,user_id) VALUES (?, ?, ?, ?)`, ['Sueldo', 'income', "El sueldo de la empresa", userId]);
