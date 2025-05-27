@@ -33,13 +33,41 @@ export const UsersModel = {
         });
     },
     getUserForLogin: (user, callback) => {
-        db.get(`SELECT * FROM users WHERE (username = ? or email = ? or phone = ?)`, [user, user, user], function (err, row) {
-            callback(err, row);
-        });
+        db.get(`SELECT *, 
+                CASE 
+                    WHEN username = ? THEN 'username'
+                    WHEN email = ? THEN 'email'
+                    WHEN phone = ? THEN 'phone'
+                END as matched_field
+                FROM users 
+                WHERE (username = ? or email = ? or phone = ?)`,
+            [user, user, user, user, user, user],
+            function (err, row) {
+                callback(err, row);
+            });
     },
     getUserForRegister: ({ username, email, phone }, callback) => {
-        db.get(`SELECT * FROM users WHERE (username = ? or email = ? or phone = ?)`, [username, email, phone], function (err, row) {
-            callback(err, row);
+        db.get(`SELECT *, 
+                CASE 
+                    WHEN username = ? THEN 'username'
+                    WHEN email = ? THEN 'email'
+                    WHEN phone = ? THEN 'phone'
+                END as matched_field
+                FROM users 
+                WHERE (username = ? or email = ? or phone = ?)`,
+            [username, email, phone, username, email, phone],
+            function (err, row) {
+                callback(err, row);
+            });
+    },
+    delete: (id, callback) => {
+        db.run(`DELETE FROM users WHERE id = ?`, [id], function (err) {
+            callback(err, this.changes);
+        });
+    },
+    update: (id, user, callback) => {
+        db.run(`UPDATE users SET name = ?, password = ? WHERE id = ?`, [user.name, user.password, id], function (err) {
+            callback(err, this.changes);
         });
     }
 }

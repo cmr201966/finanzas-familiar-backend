@@ -10,7 +10,7 @@ import { resSuccess, resError } from '../helpers/response.js';
 export const UsersRouter = Router()
 
 UsersRouter.get('/', (req, res) => {
-    UsersModel.getUsers((err, users) => {
+    UsersModel.get((err, users) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
 
         return resSuccess(res, { message: 'Lista de usuarios', data: users });

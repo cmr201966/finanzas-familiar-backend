@@ -16,6 +16,10 @@ const baseSchemas = {
                 type: "boolean",
                 example: true
             },
+            code: {
+                type: "integer",
+                example: 200
+            },
             message: { type: "string" },
             data: {
                 type: "object"
@@ -29,21 +33,20 @@ const baseSchemas = {
                 type: "boolean",
                 example: false
             },
+            code: {
+                type: "integer",
+                example: 400
+            },
             message: {
                 type: "string"
             },
             error: {
                 type: "object",
                 properties: {
-                    code: {
-                        type: "integer",
-                        example: 400
-                    },
                     details: {
                         type: "object"
                     }
                 },
-                required: ["code"]
             }
         },
         required: ["success", "message", "error"]
