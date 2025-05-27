@@ -18,7 +18,6 @@ export const AuthRouter = Router();
 
 AuthRouter.post('/login', validateSchema(LoginSchema), (req, res) => {
     const { user, password } = req.body;
-
     UsersModel.getUserForLogin(user, (err, user) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         if (!user) return resError(res, { status: 401, message: 'Credenciales incorrectas' });
@@ -41,11 +40,9 @@ AuthRouter.post('/login', validateSchema(LoginSchema), (req, res) => {
 
 AuthRouter.post('/register', validateSchema(RegisterSchema), (req, res) => {
     const { username, name, email, password, phone } = req.body;
-
     UsersModel.getUserForRegister({ username, email, phone }, (err, user) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         if (user) return resError(res, { status: 400, message: 'Ya existe un usuario con esas credenciales' });
-
         hash(password, 10, (err, hash) => {
             if (err) return resError(res, { status: 500, message: 'Error del servidor' });
 
