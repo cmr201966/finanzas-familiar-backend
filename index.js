@@ -10,6 +10,7 @@ import { ExpenseRouter } from './routes/expenses.js';
 import { UsersRouter } from './routes/users.js';
 import { AuthRouter } from './routes/auth.js';
 import { AccountsRouter } from './routes/accounts.js';
+import { PresupuestosRouter } from './routes/presupuestos.js';
 import { NotFoundRouter } from './routes/404.js';
 
 import { initTables } from './db/database.js';
@@ -31,6 +32,7 @@ app.use('/api/auth', AuthRouter);
 app.use('/api/expenses', ExpenseRouter);
 app.use('/api/users', UsersRouter);
 app.use('/api/accounts', AccountsRouter);
+app.use('/api/presupuestos', PresupuestosRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use(NotFoundRouter)
 

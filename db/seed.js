@@ -6,10 +6,6 @@ export function seedDatabase() {
         // Usuarios
         const users = [
             ['juancito', 'Juan Pérez', 'juan@example.com', '1234secure', '+344334567891'],
-            ['lucia', 'Lucia Pérez', 'lucia@example.com', 'passw0rd', '+346767778884'],
-            ['ana', 'Ana Martínez', 'ana@example.com', 'ana123456', '+346663112225'],
-            ['luis', 'Luis Pérez', 'luis@example.com', '1234secure', '+341235537891'],
-            ['Angel', 'Angel Pérez', 'angel@example.com', '1234secure', '+344234567893'],
         ];
 
         const hashedUsers = users.map((user) => {

@@ -32,7 +32,8 @@ AccountsRouter.get('/:id', (req, res) => {
 });
 
 // Crear cuenta
-AccountsRouter.post('/', validator(AccountSchema), (req, res) => {
+AccountsRouter.post('/',(req, res) => {
+//AccountsRouter.post('/', validator(AccountSchema), (req, res) => {
     AccountsModel.create(req.body, (err, account) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Cuenta creada exitosamente', data: { account } });

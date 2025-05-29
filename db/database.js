@@ -26,8 +26,8 @@ export function initTables() {
     CREATE TABLE IF NOT EXISTS accounts (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      type TEXT NOT NULL CHECK (type IN ('efectivo', 'banco', 'tarjeta')),
-      bank TEXT NOT NULL CHECK (bank IN ('BPA', 'BANDEC', 'METROPOLITANO')),
+      type TEXT NOT NULL,
+      bank TEXT NOT NULL,
       initial_balance DECIMAL(10, 2) DEFAULT 0.0,
       user_id INTEGER,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
