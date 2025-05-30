@@ -1,5 +1,8 @@
 import { db } from '../db/database.js';
 
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
+
 export const UsersModel = {
     create: (user, callback) => {
         db.run('INSERT INTO users (username, name, email, password, phone) VALUES (?, ?, ?, ?, ?)', [user.username, user.name, user.email, user.password, user.phone], function (err) {
@@ -47,7 +50,45 @@ export const UsersModel = {
         db.get(`SELECT * FROM users WHERE (username = ? or email = ? or phone = ?)`, [username, email, phone], function (err, row) {
             callback(err, row);
         });
+    },
+
+    
+    update: ({ username, updatedUser }, callback) => {
+        let fields = ['name = ?', 'phone = ?', 'email = ?'];
+        let values = [updatedUser.name, updatedUser.phone, updatedUser.email];
+    
+        // Si hay contraseña, encriptamos primero
+        if (updatedUser.pw !== '' && updatedUser.pw !== null && updatedUser.pw !== undefined) {
+            bcrypt.hash(updatedUser.pw, SALT_ROUNDS, (err, hashedPw) => {
+                if (err) return callback(err);
+    
+                fields.push('pw = ?');
+                values.push(hashedPw);
+                values.push(username);
+    
+                const sql = `UPDATE users SET ${fields.join(', ')} WHERE username = ?`;
+    
+                db.run(sql, values, function (err) {
+                    callback(err, this);
+                });
+            });
+        } else {
+            // Si no hay contraseña, solo actualizamos los otros campos
+            values.push(username);
+            const sql = `UPDATE users SET ${fields.join(', ')} WHERE username = ?`;
+    
+            db.run(sql, values, function (err) {
+                callback(err, this);
+            });
+        }
     }
+    
+
+//    update: ({ username, updatedUser }, callback) => {
+//        db.run(`UPDATE users SET name = ?, phone = ?, email = ? WHERE username = ?`, [updatedUser.name, updatedUser.phone, updatedUser.emael, username ], function (err) {
+//            callback(err, row);
+//        });
+//    },
 }
 
 
