@@ -1,6 +1,6 @@
 import { db } from '../db/database.js';
 
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 const SALT_ROUNDS = 10;
 
 export const UsersModel = {
