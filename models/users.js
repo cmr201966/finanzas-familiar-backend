@@ -17,6 +17,12 @@ export const UsersModel = {
             callback(err, row);
         });
     },
+    getUserByUserName: (username, callback) => {
+        db.get(`SELECT * FROM users WHERE username = ?`, [username], function (err, row) {
+            callback(err, row);
+        });
+    },
+    
     getUserByEmail: (email, callback) => {
         db.get(`SELECT * FROM users WHERE email = ?`, [email], function (err, row) {
             callback(err, row);

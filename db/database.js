@@ -94,8 +94,26 @@ export function initTables() {
       UNIQUE(usuario_id, categoria_id, mes)
     );
   `);
-  })
 
+// Tabla de bancos
+db.run(`
+  CREATE TABLE IF NOT EXISTS bancos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
+  );
+`);
+
+// Tabla tipo de cuentas
+db.run(`
+  CREATE TABLE IF NOT EXISTS tipocuentas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
+  );
+`);
+
+
+})
+  
   console.log('Tablas creadas');
 }
 

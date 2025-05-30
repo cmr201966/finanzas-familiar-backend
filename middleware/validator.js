@@ -1,5 +1,4 @@
 import { resError } from '../helpers/response.js';
-console.log("******************")
 export default function validateSchema(schema) {
     return (req, res, next) => {
         const result = schema.safeParse(req.body);
