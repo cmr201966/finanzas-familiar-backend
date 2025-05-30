@@ -41,10 +41,10 @@ AccountsRouter.post('/',(req, res) => {
 });
 
 // Modificar cuenta
+//AccountsRouter.put('/:id', (req, res) => {
 AccountsRouter.put('/:id', validator(AccountUpdateSchema), (req, res) => {
-    const { id } = req.params;
+        const { id } = req.params;
     const { name, type, bank, initial_balance } = req.body;
-
     AccountsModel.getAccountById(id, (err, account) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         if (!account) return resError(res, { status: 404, message: 'Cuenta no encontrada' });
