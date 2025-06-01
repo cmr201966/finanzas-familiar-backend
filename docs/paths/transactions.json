@@ -1,18 +1,18 @@
 {
-    "/accounts": {
+    "/transactions": {
         "get": {
-            "summary": "Obtener todas las cuentas del usuario",
+            "summary": "Obtener todas las transacciones del usuario",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
             "tags": [
-                "Accounts"
+                "Transactions"
             ],
             "responses": {
                 "200": {
-                    "description": "Lista de cuentas",
+                    "description": "Lista de transacciones",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -27,7 +27,7 @@
                                             "data": {
                                                 "type": "array",
                                                 "items": {
-                                                    "$ref": "#/components/schemas/accountData"
+                                                    "$ref": "#/components/schemas/transactionData"
                                                 }
                                             }
                                         }
@@ -43,33 +43,42 @@
             }
         },
         "post": {
-            "summary": "Crear una cuenta",
+            "summary": "Crear nueva transacción",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
             "tags": [
-                "Accounts"
+                "Transactions"
             ],
             "requestBody": {
-                "description": "Datos de la cuenta",
                 "required": true,
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/accountRequest"
+                            "$ref": "#/components/schemas/transactionRequest"
                         }
                     }
                 }
             },
             "responses": {
                 "201": {
-                    "description": "Cuenta creada exitosamente",
+                    "description": "Transacción creada exitosamente",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
+                                "$ref": "#/components/schemas/transactionResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Error en la solicitud",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/responseError"
                             }
                         }
                     }
@@ -80,35 +89,35 @@
             }
         }
     },
-    "/accounts/{id}": {
+    "/transactions/{id}": {
         "get": {
-            "summary": "Obtener una cuenta por ID",
+            "summary": "Obtener transacción por ID",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
             "tags": [
-                "Accounts"
+                "Transactions"
             ],
             "parameters": [
                 {
-                    "$ref": "#/components/parameters/accountId"
+                    "$ref": "#/components/parameters/transactionId"
                 }
             ],
             "responses": {
                 "200": {
-                    "description": "Información de la cuenta",
+                    "description": "Transacción encontrada",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
+                                "$ref": "#/components/schemas/transactionResponse"
                             }
                         }
                     }
                 },
                 "404": {
-                    "description": "Cuenta no encontrada",
+                    "description": "Transacción no encontrada",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -123,44 +132,43 @@
             }
         },
         "put": {
-            "summary": "Modificar una cuenta",
+            "summary": "Actualizar transacción",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
             "tags": [
-                "Accounts"
+                "Transactions"
             ],
             "parameters": [
                 {
-                    "$ref": "#/components/parameters/accountId"
+                    "$ref": "#/components/parameters/transactionId"
                 }
             ],
             "requestBody": {
-                "description": "Datos de la cuenta",
                 "required": true,
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/accountRequest"
+                            "$ref": "#/components/schemas/transactionRequest"
                         }
                     }
                 }
             },
             "responses": {
                 "200": {
-                    "description": "Cuenta modificada exitosamente",
+                    "description": "Transacción actualizada exitosamente",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
+                                "$ref": "#/components/schemas/transactionResponse"
                             }
                         }
                     }
                 },
                 "404": {
-                    "description": "Cuenta no encontrada",
+                    "description": "Transacción no encontrada",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -175,33 +183,26 @@
             }
         },
         "delete": {
-            "summary": "Eliminar una cuenta",
+            "summary": "Eliminar transacción",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
             "tags": [
-                "Accounts"
+                "Transactions"
             ],
             "parameters": [
                 {
-                    "$ref": "#/components/parameters/accountId"
+                    "$ref": "#/components/parameters/transactionId"
                 }
             ],
             "responses": {
-                "200": {
-                    "description": "Cuenta eliminada exitosamente",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
-                            }
-                        }
-                    }
+                "204": {
+                    "description": "Transacción eliminada exitosamente"
                 },
                 "404": {
-                    "description": "Cuenta no encontrada",
+                    "description": "Transacción no encontrada",
                     "content": {
                         "application/json": {
                             "schema": {

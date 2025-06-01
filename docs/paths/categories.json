@@ -1,18 +1,18 @@
 {
-    "/accounts": {
+    "/categories": {
         "get": {
-            "summary": "Obtener todas las cuentas del usuario",
+            "summary": "Obtener todas las categorías del usuario",
+            "tags": [
+                "Categories"
+            ],
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
-            "tags": [
-                "Accounts"
-            ],
             "responses": {
                 "200": {
-                    "description": "Lista de cuentas",
+                    "description": "Lista de categorías",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -27,7 +27,7 @@
                                             "data": {
                                                 "type": "array",
                                                 "items": {
-                                                    "$ref": "#/components/schemas/accountData"
+                                                    "$ref": "#/components/schemas/categoryData"
                                                 }
                                             }
                                         }
@@ -43,33 +43,33 @@
             }
         },
         "post": {
-            "summary": "Crear una cuenta",
+            "summary": "Crear nueva categoría",
+            "tags": [
+                "Categories"
+            ],
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
-            "tags": [
-                "Accounts"
-            ],
             "requestBody": {
-                "description": "Datos de la cuenta",
+                "description": "Datos de la categoría",
                 "required": true,
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/accountRequest"
+                            "$ref": "#/components/schemas/categoryRequest"
                         }
                     }
                 }
             },
             "responses": {
                 "201": {
-                    "description": "Cuenta creada exitosamente",
+                    "description": "Categoría creada exitosamente",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
+                                "$ref": "#/components/schemas/categoryResponse"
                             }
                         }
                     }
@@ -80,35 +80,35 @@
             }
         }
     },
-    "/accounts/{id}": {
+    "/categories/{id}": {
         "get": {
-            "summary": "Obtener una cuenta por ID",
+            "summary": "Obtener categoría por ID",
+            "tags": [
+                "Categories"
+            ],
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
-            "tags": [
-                "Accounts"
-            ],
             "parameters": [
                 {
-                    "$ref": "#/components/parameters/accountId"
+                    "$ref": "#/components/parameters/categoryId"
                 }
             ],
             "responses": {
                 "200": {
-                    "description": "Información de la cuenta",
+                    "description": "Categoría encontrada",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
+                                "$ref": "#/components/schemas/categoryResponse"
                             }
                         }
                     }
                 },
                 "404": {
-                    "description": "Cuenta no encontrada",
+                    "description": "Categoría no encontrada",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -123,44 +123,44 @@
             }
         },
         "put": {
-            "summary": "Modificar una cuenta",
+            "summary": "Actualizar categoría",
+            "tags": [
+                "Categories"
+            ],
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
-            "tags": [
-                "Accounts"
-            ],
             "parameters": [
                 {
-                    "$ref": "#/components/parameters/accountId"
+                    "$ref": "#/components/parameters/categoryId"
                 }
             ],
             "requestBody": {
-                "description": "Datos de la cuenta",
+                "description": "Datos de la categoría",
                 "required": true,
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/accountRequest"
+                            "$ref": "#/components/schemas/categoryRequest"
                         }
                     }
                 }
             },
             "responses": {
                 "200": {
-                    "description": "Cuenta modificada exitosamente",
+                    "description": "Categoría actualizada",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
+                                "$ref": "#/components/schemas/categoryResponse"
                             }
                         }
                     }
                 },
                 "404": {
-                    "description": "Cuenta no encontrada",
+                    "description": "Categoría no encontrada",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -175,37 +175,27 @@
             }
         },
         "delete": {
-            "summary": "Eliminar una cuenta",
+            "summary": "Eliminar categoría",
+            "tags": [
+                "Categories"
+            ],
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
-            "tags": [
-                "Accounts"
-            ],
             "parameters": [
                 {
-                    "$ref": "#/components/parameters/accountId"
+                    "$ref": "#/components/parameters/categoryId"
                 }
             ],
             "responses": {
                 "200": {
-                    "description": "Cuenta eliminada exitosamente",
+                    "description": "Categoría eliminada exitosamente",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
-                            }
-                        }
-                    }
-                },
-                "404": {
-                    "description": "Cuenta no encontrada",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/responseError"
+                                "$ref": "#/components/schemas/categoryResponse"
                             }
                         }
                     }

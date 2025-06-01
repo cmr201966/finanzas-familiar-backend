@@ -1,0 +1,64 @@
+{
+    "categoryData": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer",
+                "example": 1
+            },
+            "name": {
+                "type": "string",
+                "example": "Alimentos"
+            },
+            "type": {
+                "type": "string",
+                "example": "expense"
+            },
+            "description": {
+                "type": "string",
+                "example": "Gastos de alimentos"
+            },
+            "created_at": {
+                "type": "string",
+                "format": "date-time"
+            },
+            "updated_at": {
+                "type": "string",
+                "format": "date-time"
+            }
+        }
+    },
+    "categoryResponse": {
+        "type": "object",
+        "allOf": [
+            {
+                "$ref": "#/components/schemas/responseSuccess"
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/categoryData"
+                    }
+                }
+            }
+        ]
+    },
+    "categoryRequest": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "example": "Alimentos"
+            },
+            "type": {
+                "type": "string",
+                "example": "expense"
+            },
+            "description": {
+                "type": "string",
+                "example": "Gastos de alimentos"
+            }
+        }
+    }
+}

@@ -1,18 +1,18 @@
 {
-    "/accounts": {
+    "/budgets": {
         "get": {
-            "summary": "Obtener todas las cuentas del usuario",
+            "summary": "Obtener todos los presupuestos del usuario",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
             "tags": [
-                "Accounts"
+                "Budgets"
             ],
             "responses": {
                 "200": {
-                    "description": "Lista de cuentas",
+                    "description": "Lista de presupuestos",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -27,7 +27,7 @@
                                             "data": {
                                                 "type": "array",
                                                 "items": {
-                                                    "$ref": "#/components/schemas/accountData"
+                                                    "$ref": "#/components/schemas/budgetData"
                                                 }
                                             }
                                         }
@@ -43,33 +43,32 @@
             }
         },
         "post": {
-            "summary": "Crear una cuenta",
+            "summary": "Crear nuevo presupuesto",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
             "tags": [
-                "Accounts"
+                "Budgets"
             ],
             "requestBody": {
-                "description": "Datos de la cuenta",
                 "required": true,
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/accountRequest"
+                            "$ref": "#/components/schemas/budgetRequest"
                         }
                     }
                 }
             },
             "responses": {
-                "201": {
-                    "description": "Cuenta creada exitosamente",
+                "200": {
+                    "description": "Presupuesto creado exitosamente",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
+                                "$ref": "#/components/schemas/budgetResponse"
                             }
                         }
                     }
@@ -80,35 +79,35 @@
             }
         }
     },
-    "/accounts/{id}": {
+    "/budgets/{id}": {
         "get": {
-            "summary": "Obtener una cuenta por ID",
+            "summary": "Obtener presupuesto por ID",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
             "tags": [
-                "Accounts"
+                "Budgets"
             ],
             "parameters": [
                 {
-                    "$ref": "#/components/parameters/accountId"
+                    "$ref": "#/components/parameters/budgetId"
                 }
             ],
             "responses": {
                 "200": {
-                    "description": "Información de la cuenta",
+                    "description": "Presupuesto obtenido",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
+                                "$ref": "#/components/schemas/budgetResponse"
                             }
                         }
                     }
                 },
                 "404": {
-                    "description": "Cuenta no encontrada",
+                    "description": "Presupuesto no encontrado",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -123,48 +122,37 @@
             }
         },
         "put": {
-            "summary": "Modificar una cuenta",
+            "summary": "Actualizar presupuesto",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
             "tags": [
-                "Accounts"
+                "Budgets"
             ],
             "parameters": [
                 {
-                    "$ref": "#/components/parameters/accountId"
+                    "$ref": "#/components/parameters/budgetId"
                 }
             ],
             "requestBody": {
-                "description": "Datos de la cuenta",
                 "required": true,
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/accountRequest"
+                            "$ref": "#/components/schemas/BudgetRequest"
                         }
                     }
                 }
             },
             "responses": {
                 "200": {
-                    "description": "Cuenta modificada exitosamente",
+                    "description": "Presupuesto actualizado exitosamente",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
-                            }
-                        }
-                    }
-                },
-                "404": {
-                    "description": "Cuenta no encontrada",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/responseError"
+                                "$ref": "#/components/schemas/budgetResponse"
                             }
                         }
                     }
@@ -175,37 +163,27 @@
             }
         },
         "delete": {
-            "summary": "Eliminar una cuenta",
+            "summary": "Eliminar presupuesto",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
             "tags": [
-                "Accounts"
+                "Budgets"
             ],
             "parameters": [
                 {
-                    "$ref": "#/components/parameters/accountId"
+                    "$ref": "#/components/parameters/budgetId"
                 }
             ],
             "responses": {
                 "200": {
-                    "description": "Cuenta eliminada exitosamente",
+                    "description": "Presupuesto eliminado exitosamente",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/accountResponse"
-                            }
-                        }
-                    }
-                },
-                "404": {
-                    "description": "Cuenta no encontrada",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/responseError"
+                                "$ref": "#/components/schemas/budgetResponse"
                             }
                         }
                     }

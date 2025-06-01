@@ -1,0 +1,56 @@
+{
+    "budgetData": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer",
+                "example": 1
+            },
+            "category_id": {
+                "type": "integer",
+                "example": 1
+            },
+            "amount_limit": {
+                "type": "number",
+                "example": 100
+            },
+            "month": {
+                "type": "string",
+                "example": "2022-01-01"
+            }
+        }
+    },
+    "budgetResponse": {
+        "type": "object",
+        "allOf": [
+            {
+                "$ref": "#/components/schemas/responseSuccess"
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/budgetData"
+                    }
+                }
+            }
+        ]
+    },
+    "budgetRequest": {
+        "type": "object",
+        "properties": {
+            "category_id": {
+                "type": "integer",
+                "example": 1
+            },
+            "amount_limit": {
+                "type": "number",
+                "example": 100
+            },
+            "month": {
+                "type": "string",
+                "example": "2022-01-01"
+            }
+        }
+    }
+}

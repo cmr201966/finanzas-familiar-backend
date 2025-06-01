@@ -1,0 +1,64 @@
+{
+    "expenseData": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer",
+                "example": 1
+            },
+            "name": {
+                "type": "string",
+                "example": "Gasto 1"
+            },
+            "amount": {
+                "type": "number",
+                "example": 100
+            },
+            "date": {
+                "type": "string",
+                "example": "2022-01-01"
+            },
+            "category": {
+                "type": "string",
+                "example": "Categoría 1"
+            }
+        }
+    },
+    "expenseResponse": {
+        "type": "object",
+        "allOf": [
+            {
+                "$ref": "#/components/schemas/responseSuccess"
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/expenseData"
+                    }
+                }
+            }
+        ]
+    },
+    "expenseRequest": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "example": "Gasto 1"
+            },
+            "amount": {
+                "type": "number",
+                "example": 100
+            },
+            "date": {
+                "type": "string",
+                "example": "2022-01-01"
+            },
+            "category": {
+                "type": "string",
+                "example": "Categoría 1"
+            }
+        }
+    }
+}

@@ -1,0 +1,47 @@
+{
+    "responseSuccess": {
+        "type": "object",
+        "properties": {
+            "success": {
+                "type": "boolean",
+                "example": true
+            },
+            "code": {
+                "type": "integer",
+                "example": 200
+            },
+            "message": {
+                "type": "string",
+                "example": "Operación exitosa"
+            },
+            "data": {
+                "type": "object"
+            }
+        }
+    },
+    "responseError": {
+        "type": "object",
+        "properties": {
+            "success": {
+                "type": "boolean",
+                "example": false
+            },
+            "code": {
+                "type": "integer",
+                "example": 500
+            },
+            "message": {
+                "type": "string",
+                "example": "Error del servidor"
+            },
+            "error": {
+                "type": "object",
+                "properties": {
+                    "details": {
+                        "type": "object"
+                    }
+                }
+            }
+        }
+    }
+}

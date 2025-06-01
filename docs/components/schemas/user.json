@@ -1,0 +1,56 @@
+{
+    "userData": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer",
+                "example": 1
+            },
+            "username": {
+                "type": "string",
+                "example": "angel"
+            },
+            "name": {
+                "type": "string",
+                "example": "Angel"
+            },
+            "email": {
+                "type": "string",
+                "example": "finanzas@example.com"
+            },
+            "phone": {
+                "type": "string",
+                "example": "123456789"
+            }
+        }
+    },
+    "userResponse": {
+        "type": "object",
+        "allOf": [
+            {
+                "$ref": "#/components/schemas/responseSuccess"
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/userData"
+                    }
+                }
+            }
+        ]
+    },
+    "userRequest": {
+        "type": "object",
+        "properties": {
+            "user": {
+                "type": "string",
+                "example": "angel"
+            },
+            "password": {
+                "type": "string",
+                "format": "password"
+            }
+        }
+    }
+}
