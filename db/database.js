@@ -84,14 +84,15 @@ export function initTables() {
 
     // Tabla de presupuestos
     db.run(`
-    CREATE TABLE IF NOT EXISTS presupuestos (
+    CREATE TABLE IF NOT EXISTS budgets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      usuario_id INTEGER,
-      categoria_id INTEGER,
-      monto_limite REAL,
-      mes TEXT,
-      creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
-      UNIQUE(usuario_id, categoria_id, mes)
+      user_id INTEGER UNIQUE NOT NULL,
+      category_id INTEGER UNIQUE NOT NULL,
+      amount_limit DECIMAL(10, 2) NOT NULL,
+      month TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (category_id) REFERENCES categories(id)
     );
   `);
   })

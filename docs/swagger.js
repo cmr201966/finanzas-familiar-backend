@@ -1,27 +1,69 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync, readdirSync, statSync } from 'fs';
+import { join, extname, basename } from 'path';
 import { cwd } from 'process';
 
-// Swagger Docs
+const DIR = join(cwd(), 'docs');
+const DIR_COMPONENTS = join(DIR, 'components');
+const DIR_PATHS = join(DIR, 'paths');
 
-// Paths JSON
-const expenses = JSON.parse(readFileSync(join(cwd(), './docs/paths/expenses.json'), 'utf8'));
-const users = JSON.parse(readFileSync(join(cwd(), './docs/paths/users.json'), 'utf8'));
-const auth = JSON.parse(readFileSync(join(cwd(), './docs/paths/auth.json'), 'utf8'));
-const accounts = JSON.parse(readFileSync(join(cwd(), './docs/paths/accounts.json'), 'utf8'));
+function readComponents(dir) {
+  const components = {};
+  const types = ['schemas', 'responses', 'parameters', 'securitySchemes'];
 
-// Schemas 
-import { schemas } from './components/schemas.js';
+  try {
+    types.forEach(type => {
+      const files = readdirSync(join(dir, type));
+      components[type] = files.reduce((acc, file) => {
+        try {
+          const content = JSON.parse(readFileSync(join(dir, type, file), 'utf8'));
 
-const paths = {
-  ...auth,
-  ...users,
-  ...expenses,
-  ...accounts,
-};
+          if (type === 'schemas') {
+            return { ...acc, ...content };
+          }
 
+          return { ...acc, [basename(file, '.json')]: content };
+        } catch (error) {
+          console.error(`Error en archivo ${file}:`, error.message);
+          return acc;
+        }
+      }, {});
+    });
+  } catch (error) {
+    console.error('Error en componentes:', error.message);
+  }
 
-const description = `
+  return components;
+}
+
+function readPaths(dir) {
+  try {
+    const paths = {};
+    if (!statSync(dir).isDirectory()) return paths;
+
+    readdirSync(dir)
+      .filter(file => extname(file) === '.json')
+      .forEach(file => {
+        const filePath = join(dir, file);
+        try {
+          Object.assign(paths, JSON.parse(readFileSync(filePath, 'utf8')));
+        } catch (error) {
+          console.error(`Error en ruta ${file}:`, error.message);
+        }
+      });
+
+    return paths;
+  } catch (error) {
+    console.error('Error en rutas:', error.message);
+    return {};
+  }
+}
+
+const swaggerDoc = {
+  openapi: '3.1.0',
+  info: {
+    title: 'Finanzas Familiar API',
+    version: '1.0.0',
+    description: `
 <h2 style="text-align:center;">🎉 Bienvenido/a a la documentación oficial de la API para la Gestión de Finanzas Familiares 🎉</h2>
 
 <p>Aquí encontrarás todo lo que necesitas para interactuar de forma eficiente y segura con nuestro sistema. Esta API ha sido diseñada pensando en la organización, el control y la transparencia de tus finanzas personales y familiares.</p>
@@ -37,32 +79,17 @@ const description = `
 
 <p>Cada endpoint viene cuidadosamente documentado para que desarrolladores de todos los niveles puedan integrarse sin complicaciones.</p>
 
-<i><b>✨ ¡Haz que tus finanzas trabajen para ti, no al revés! ✨</b></i> 
-`;
-
-export const swaggerDoc = {
-  openapi: '3.1.0',
-  info: {
-    title: 'Finanzas Familiar API',
-    version: '1.0.0',
-    description
+<i><b>✨ ¡Haz que tus finanzas trabajen para ti, no al revés! ✨</b></i>
+    `
   },
   servers: [
     {
       url: 'http://localhost:3000/api/',
-      description: 'Servidor local',
-    },
+      description: 'Servidor local'
+    }
   ],
-  components: {
-    schemas,
-    securitySchemes: {
-      bearerAuth: {
-        type: "http",
-        scheme: "bearer",
-        bearerFormat: "JWT"
-      }
-    },
-  },
-  paths
-}
+  paths: readPaths(DIR_PATHS),
+  components: readComponents(DIR_COMPONENTS)
+};
 
+export default swaggerDoc;

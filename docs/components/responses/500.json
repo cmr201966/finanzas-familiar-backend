@@ -1,0 +1,10 @@
+{
+    "description": "Error del servidor",
+    "content": {
+        "application/json": {
+            "schema": {
+                "$ref": "#/components/schemas/responseError"
+            }
+        }
+    }
+}

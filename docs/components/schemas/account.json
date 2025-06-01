@@ -1,0 +1,85 @@
+{
+    "accountData": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer",
+                "example": 1
+            },
+            "name": {
+                "type": "string",
+                "example": "Cuenta de Ahorro"
+            },
+            "type": {
+                "type": "string",
+                "example": "CUP"
+            },
+            "bank": {
+                "type": "string",
+                "example": "BPA"
+            },
+            "initial_balance": {
+                "type": "number",
+                "example": 1000
+            },
+            "user_id": {
+                "type": "integer",
+                "example": 1
+            }
+        }
+    },
+    "accountResponse": {
+        "type": "object",
+        "allOf": [
+            {
+                "$ref": "#/components/schemas/responseSuccess"
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/accountData"
+                    }
+                }
+            }
+        ]
+    },
+    "accountRequest": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "type": {
+                "type": "string",
+                "enum": [
+                    "CUP",
+                    "MLC",
+                    "USD",
+                    "EUR"
+                ]
+            },
+            "bank": {
+                "type": "string",
+                "enum": [
+                    "BPA",
+                    "BANDEC",
+                    "METROPOLITANO"
+                ]
+            },
+            "initial_balance": {
+                "type": "number"
+            },
+            "user_id": {
+                "type": "integer"
+            }
+        },
+        "required": [
+            "name",
+            "type",
+            "bank",
+            "initial_balance",
+            "user_id"
+        ]
+    }
+}

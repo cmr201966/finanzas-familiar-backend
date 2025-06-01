@@ -16,20 +16,92 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
+                                "type": "object",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/responseSuccess"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/userData"
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
                             }
                         }
                     }
                 },
                 "500": {
-                    "description": "Error del servidor",
+                    "$ref": "#/components/responses/500"
+                }
+            }
+        },
+        "put": {
+            "summary": "Actualizar usuario",
+            "tags": [
+                "Users"
+            ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
+            "requestBody": {
+                "description": "Datos del usuario",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/userRequest"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Actualización exitosa",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
+                                "$ref": "#/components/schemas/userResponse"
                             }
                         }
                     }
+                },
+                "500": {
+                    "$ref": "#/components/responses/500"
+                }
+            }
+        },
+        "delete": {
+            "summary": "Eliminar usuario",
+            "tags": [
+                "Users"
+            ],
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Usuario eliminado exitosamente",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/userResponse"
+                            }
+                        }
+                    }
+                },
+                "500": {
+                    "$ref": "#/components/responses/500"
                 }
             }
         }
@@ -47,13 +119,7 @@
             ],
             "parameters": [
                 {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "ID del usuario",
-                    "schema": {
-                        "type": "integer"
-                    }
+                    "$ref": "#/components/parameters/userId"
                 }
             ],
             "responses": {
@@ -62,7 +128,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
+                                "$ref": "#/components/schemas/userResponse"
                             }
                         }
                     }
@@ -72,20 +138,13 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
+                                "$ref": "#/components/schemas/responseError"
                             }
                         }
                     }
                 },
                 "500": {
-                    "description": "Error del servidor",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
-                            }
-                        }
-                    }
+                    "$ref": "#/components/responses/500"
                 }
             }
         }

@@ -9,11 +9,10 @@ import { Config } from '../config.js';
 import { resSuccess, resError } from '../helpers/response.js';
 
 // Schemas
-import { LoginSchema, RegisterSchema, UpdateSchema } from '../schemas/auth.js';
+import { LoginSchema, RegisterSchema } from '../schemas/auth.js';
 
 // Middleware
 import validateSchema from '../middleware/validator.js';
-import authMiddleware from '../middleware/auth.js';
 
 export const AuthRouter = Router();
 
@@ -64,40 +63,3 @@ AuthRouter.post('/register', validateSchema(RegisterSchema), (req, res) => {
 
     });
 })
-
-AuthRouter.delete('/delete', authMiddleware, (req, res) => {
-    const { id } = req.user;
-
-    UsersModel.delete(id, (err, user) => {
-        if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        return resSuccess(res, { message: 'Usuario eliminado exitosamente', data: { user } });
-    })
-})
-
-AuthRouter.put('/update', [authMiddleware, validateSchema(UpdateSchema)], (req, res) => {
-    const user = req.user;
-    const { name, password } = req.body;
-
-    let hashPassword;
-    if (password) {
-        hash(password, 10, (err, hash) => {
-            if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-            hashPassword = hash;
-        });
-    } else {
-        hashPassword = user.password;
-    }
-
-    const updateUser = {
-        ...user,
-        name: name || user.name,
-        password: hashPassword,
-    }
-
-    UsersModel.update(id, updateUser, (err, changes) => {
-        if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-
-        return resSuccess(res, { message: 'Actualización exitosa', data: { changes } });
-    });
-});
-

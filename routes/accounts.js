@@ -17,7 +17,7 @@ export const AccountsRouter = Router();
 AccountsRouter.get('/', (req, res) => {
     AccountsModel.get((err, accounts) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        return resSuccess(res, { message: 'Cuentas obtenidas', data: { accounts: accounts || [] } });
+        return resSuccess(res, { message: 'Cuentas obtenidas', data: accounts || [] });
     });
 });
 
@@ -27,7 +27,7 @@ AccountsRouter.get('/:id', (req, res) => {
 
     AccountsModel.getAccountById(id, (err, account) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        return resSuccess(res, { message: 'Cuenta obtenida', data: { account: account || [] } });
+        return resSuccess(res, { message: 'Cuenta obtenida', data: account || [] });
     });
 });
 
@@ -35,7 +35,7 @@ AccountsRouter.get('/:id', (req, res) => {
 AccountsRouter.post('/', validator(AccountSchema), (req, res) => {
     AccountsModel.create(req.body, (err, account) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        return resSuccess(res, { message: 'Cuenta creada exitosamente', data: { account } });
+        return resSuccess(res, { message: 'Cuenta creada exitosamente', data: account });
     });
 });
 

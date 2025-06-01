@@ -1,55 +1,63 @@
 {
     "/expenses": {
         "get": {
-            "summary": "Obtener todos los gastos",
-            "tags": [
-                "Expenses"
-            ],
+            "summary": "Obtener todos los gastos del usuario",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
+            "tags": [
+                "Expenses"
+            ],
             "responses": {
                 "200": {
-                    "description": "Gastos obtenidos",
+                    "description": "Lista de gastos",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
+                                "type": "object",
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/responseSuccess"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/components/schemas/expenseData"
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
                             }
                         }
                     }
                 },
                 "500": {
-                    "description": "Error del servidor",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
-                            }
-                        }
-                    }
+                    "$ref": "#/components/responses/500"
                 }
             }
         },
         "post": {
-            "summary": "Crear gasto",
-            "tags": [
-                "Expenses"
-            ],
+            "summary": "Crear nuevo gasto",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
+            "tags": [
+                "Expenses"
+            ],
             "requestBody": {
-                "description": "Datos del gasto",
                 "required": true,
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/ExpenseRequest"
+                            "$ref": "#/components/schemas/expenseRequest"
                         }
                     }
                 }
@@ -60,165 +68,123 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
+                                "$ref": "#/components/schemas/expenseResponse"
                             }
                         }
                     }
                 },
                 "500": {
-                    "description": "Error del servidor",
+                    "$ref": "#/components/responses/500"
+                }
+            }
+        },
+        "delete": {
+            "summary": "Eliminar todos los gastos del usuario",
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
+            "tags": [
+                "Expenses"
+            ],
+            "responses": {
+                "200": {
+                    "description": "Gastos eliminados exitosamente",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
+                                "$ref": "#/components/schemas/expenseResponse"
                             }
                         }
                     }
+                },
+                "500": {
+                    "$ref": "#/components/responses/500"
                 }
             }
         }
     },
     "/expenses/{id}": {
         "get": {
-            "summary": "Obtener un gasto por ID",
-            "tags": [
-                "Expenses"
-            ],
+            "summary": "Obtener gasto por ID",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
+            "tags": [
+                "Expenses"
+            ],
             "parameters": [
                 {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "ID del gasto",
-                    "schema": {
-                        "type": "integer"
-                    }
+                    "$ref": "#/components/parameters/expenseId"
                 }
             ],
             "responses": {
                 "200": {
-                    "description": "Gasto obtenido",
+                    "description": "Gasto obtenido exitosamente",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
+                                "$ref": "#/components/schemas/expenseResponse"
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Gasto no encontrado",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/expenseResponse"
                             }
                         }
                     }
                 },
                 "500": {
-                    "description": "Error del servidor",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
-                            }
-                        }
-                    }
+                    "$ref": "#/components/responses/500"
                 }
             }
         },
         "put": {
-            "summary": "Modificar gasto",
-            "tags": [
-                "Expenses"
-            ],
+            "summary": "Actualizar gasto",
             "security": [
                 {
                     "bearerAuth": []
                 }
             ],
+            "tags": [
+                "Expenses"
+            ],
             "parameters": [
                 {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "ID del gasto a modificar",
-                    "schema": {
-                        "type": "integer"
-                    }
+                    "$ref": "#/components/parameters/expenseId"
                 }
             ],
             "requestBody": {
-                "description": "Datos actualizados del gasto",
                 "required": true,
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/ExpenseRequest"
+                            "$ref": "#/components/schemas/expenseRequest"
                         }
                     }
                 }
             },
             "responses": {
                 "200": {
-                    "description": "Gasto actualizado",
+                    "description": "Gasto actualizado exitosamente",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
+                                "$ref": "#/components/schemas/expenseResponse"
                             }
                         }
                     }
                 },
                 "500": {
-                    "description": "Error del servidor",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "delete": {
-            "summary": "Eliminar gasto",
-            "tags": [
-                "Expenses"
-            ],
-            "security": [
-                {
-                    "bearerAuth": []
-                }
-            ],
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "ID del gasto a eliminar",
-                    "schema": {
-                        "type": "integer"
-                    }
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Gasto eliminado",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
-                            }
-                        }
-                    }
-                },
-                "500": {
-                    "description": "Error del servidor",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
-                            }
-                        }
-                    }
+                    "$ref": "#/components/responses/500"
                 }
             }
         }
