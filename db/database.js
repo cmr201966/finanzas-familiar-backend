@@ -89,7 +89,7 @@ export function initTables() {
       user_id INTEGER UNIQUE NOT NULL,
       category_id INTEGER UNIQUE NOT NULL,
       amount_limit DECIMAL(10, 2) NOT NULL,
-      month INTEGER NOT NULL,
+      month TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(id),
       FOREIGN KEY (category_id) REFERENCES categories(id)
