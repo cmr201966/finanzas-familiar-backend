@@ -9,6 +9,10 @@ const expenses = JSON.parse(readFileSync(join(cwd(), './docs/paths/expenses.json
 const users = JSON.parse(readFileSync(join(cwd(), './docs/paths/users.json'), 'utf8'));
 const auth = JSON.parse(readFileSync(join(cwd(), './docs/paths/auth.json'), 'utf8'));
 const accounts = JSON.parse(readFileSync(join(cwd(), './docs/paths/accounts.json'), 'utf8'));
+const categorias = JSON.parse(readFileSync(join(cwd(), './docs/paths/categorias.json'), 'utf8'));
+const presupuestos = JSON.parse(readFileSync(join(cwd(), './docs/paths/presupuestos.json'), 'utf8'));
+const bancos = JSON.parse(readFileSync(join(cwd(), './docs/paths/bancos.json'), 'utf8'));
+const tipocuentas = JSON.parse(readFileSync(join(cwd(), './docs/paths/tipocuentas.json'), 'utf8'));
 
 // Schemas 
 import { schemas } from './components/schemas.js';
@@ -18,7 +22,12 @@ const paths = {
   ...users,
   ...expenses,
   ...accounts,
+  ...categorias,
+  ...presupuestos,
+  ...bancos,
+  ...tipocuentas,
 };
+
 
 export const swaggerDoc = {
   openapi: '3.1.0',

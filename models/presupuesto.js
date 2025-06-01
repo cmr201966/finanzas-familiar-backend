@@ -3,26 +3,26 @@ import { db } from "../db/database.js";
 
 export const PresupuestoModel = {
     create: (presupuesto, callback) => {
+        console.log(presupuesto)
         db.run('INSERT INTO presupuestos (usuario_id, categoria_id, monto_limita, mes, creado_en) VALUES (?, ?, ?, ?, ?)', [presupuesto.usuario_id, presupuesto.categoria_id, presupuesto.monto_limite, presupuesto.mes, presupuesto.creado_en], function (err) {
             const newPresupuesto = { id: this.lastID, ...presupuesto };
             callback(err, newPresupuesto);
         });
     },
 
-    get: (callback) => {
-        console.log("111111")
+    getPresupuestos: (callback) => {
         db.all('SELECT * FROM presupuestos', function (err, rows) {
             callback(err, rows);
         });
     },
 
-    getPresupuestoById: (id, callback) => {
-        db.get(`SELECT * FROM presupuestos WHERE id = ?`, [id], function (err, row) {
+    getPresupuestosById: (id, callback) => {
+        db.get(`SELECT * FROM presupuestos WHERE (id = ?)`, [id], function (err, row) {
             callback(err, row);
         });
     },
-    getPresupuestoByUserId: (userId, callback) => {
-        db.all(`SELECT * FROM presupuestos WHERE id = ?`, [userId], function (err, rows) {
+    getPresupuestosByUserName: (username, callback) => {
+        db.all(`SELECT presupuestos.* FROM presupuestos JOIN users ON presupuestos.usuario_id = users.id WHERE users.username = ?`, [username], function (err, rows) {
             callback(err, rows);
         });
     },

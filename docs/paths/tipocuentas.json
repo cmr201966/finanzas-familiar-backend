@@ -1,0 +1,136 @@
+{
+    "/tipocuentas": {
+      "get": {
+        "tags": ["TipoCuentas"],
+        "summary": "Obtener todos los tipos de cuentas",
+        "responses": {
+          "200": {
+            "description": "Lista de tipos de cuentas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "tipocuentas": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/TipoCuenta"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["TipoCuentas"],
+        "summary": "Crear un tipo de cuenta",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TipoCuentaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Tipo cuenta creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TipoCuenta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tipocuentas/{id}": {
+      "get": {
+        "tags": ["TipoCuentas"],
+        "summary": "Obtener un tipo de cuenta por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo cuenta encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TipoCuenta"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["TipoCuentas"],
+        "summary": "Actualizar tipo de cuenta",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TipoCuentaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tipo cuenta actualizada"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["TipoCuentas"],
+        "summary": "Eliminar tipo de cuenta",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo cuenta eliminada"
+          }
+        }
+      }
+    }
+  }
+  

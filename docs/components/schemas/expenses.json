@@ -1,0 +1,49 @@
+{
+    "Expense": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "usuario_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "categoria_id": {
+          "type": "integer",
+          "example": 2
+        },
+        "cuenta_id": {
+          "type": "integer",
+          "example": 3
+        },
+        "monto": {
+          "type": "number",
+          "example": 150.75
+        },
+        "fecha": {
+          "type": "string",
+          "format": "date",
+          "example": "2025-05-31"
+        },
+        "descripcion": {
+          "type": "string",
+          "example": "Pago de servicios"
+        }
+      }
+    },
+    "ExpenseInput": {
+      "type": "object",
+      "properties": {
+        "usuario_id": { "type": "integer" },
+        "categoria_id": { "type": "integer" },
+        "cuenta_id": { "type": "integer" },
+        "monto": { "type": "number" },
+        "fecha": { "type": "string", "format": "date" },
+        "descripcion": { "type": "string" }
+      },
+      "required": ["usuario_id", "categoria_id", "cuenta_id", "monto", "fecha"]
+    }
+  }
+  

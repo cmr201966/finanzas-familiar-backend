@@ -31,7 +31,7 @@ app.use(cors({
 }));
 
 app.use('/api/auth', AuthRouter);
-app.use('/api/expenses', ExpenseRouter);
+app.use('/api/categorias', ExpenseRouter);
 app.use('/api/users', UsersRouter);
 app.use('/api/accounts', AccountsRouter);
 app.use('/api/presupuestos', PresupuestosRouter);

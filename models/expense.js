@@ -1,23 +1,25 @@
 import { db } from '../db/database.js';
 
 export const ExpenseModel = {
-  get: (callback) => {
+  getCategorias: (callback) => {
     db.all(
-      `SELECT * FROM transactions WHERE type = 'expense' ORDER BY date DESC`,
+      `SELECT * FROM categories`,
       function (err, rows) {
         callback(err, rows);
       }
     );
   },
-  getById: (id, callback) => {
-    db.get(
-      `SELECT * FROM transactions WHERE id = ? AND type = 'expense'`,
-      [id],
-      function (err, row) {
-        callback(err, row);
+  getCategoriasByType: (type, iduser, callback) => {
+    console.log("Ruta")
+    db.all(
+      `SELECT categories.* FROM categories, users WHERE (type = ?) and (users.id=categories.user_id) and (users.username=?)`,
+      [type, iduser],
+      function (err, rows) {
+        callback(err, rows);
       }
     );
   },
+  
   create: (expense, callback) => {
     const { amount, description, date } = expense;
     db.run(

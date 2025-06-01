@@ -1,0 +1,26 @@
+{
+    "Banco": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Banco Nación"
+        }
+      }
+    },
+    "BancoInput": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Banco Galicia"
+        }
+      },
+      "required": ["name"]
+    }
+  }
+  
