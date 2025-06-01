@@ -11,6 +11,8 @@ import { UsersRouter } from './routes/users.js';
 import { AuthRouter } from './routes/auth.js';
 import { AccountsRouter } from './routes/accounts.js';
 import { BudgetsRouter } from './routes/budgets.js';
+import { TransactionsRouter } from './routes/transactions.js';
+import { CategoriesRouter } from './routes/categories.js';
 import { NotFoundRouter } from './routes/notFound.js';
 
 // Middlewares
@@ -38,6 +40,8 @@ app.use('/api/expenses', authMiddleware, ExpenseRouter);
 app.use('/api/users', authMiddleware, UsersRouter);
 app.use('/api/accounts', authMiddleware, AccountsRouter);
 app.use('/api/budgets', authMiddleware, BudgetsRouter);
+app.use('/api/transactions', authMiddleware, TransactionsRouter);
+app.use('/api/categories', authMiddleware, CategoriesRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use(NotFoundRouter)
 
