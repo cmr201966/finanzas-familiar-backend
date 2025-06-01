@@ -19,7 +19,7 @@ export const TransactionsRouter = Router()
 // Obtener todas las transacciones del usuario
 TransactionsRouter.get('/', authMiddleware, (req, res) => {
     const { id } = req.user;
-    
+
     TransactionsModel.getByUserId(id, (err, transactions) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Lista de transacciones', data: transactions });
@@ -29,9 +29,9 @@ TransactionsRouter.get('/', authMiddleware, (req, res) => {
 // Obtener una transacción específica
 TransactionsRouter.get('/:id', authMiddleware, (req, res) => {
     const { id } = req.params;
-    const { usuario_id } = req.user;
-    
-    TransactionsModel.getById(id, usuario_id, (err, transaction) => {
+    const { user_id } = req.user;
+
+    TransactionsModel.getById(id, user_id, (err, transaction) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         if (!transaction) return resError(res, { status: 404, message: 'Transacción no encontrada' });
         return resSuccess(res, { message: 'Información de la transacción', data: transaction });
@@ -40,10 +40,10 @@ TransactionsRouter.get('/:id', authMiddleware, (req, res) => {
 
 // Crear nueva transacción
 TransactionsRouter.post('/', authMiddleware, validateSchema(CreateTransactionSchema), (req, res) => {
-    const { usuario_id } = req.user;
+    const { user_id } = req.user;
     const { category_id, account_id, amount, date, description } = req.body;
-    
-    TransactionsModel.create(usuario_id, category_id, account_id, amount, date, description, (err, transaction) => {
+
+    TransactionsModel.create(user_id, category_id, account_id, amount, date, description, (err, transaction) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Transacción creada exitosamente', data: transaction });
     })
@@ -52,23 +52,23 @@ TransactionsRouter.post('/', authMiddleware, validateSchema(CreateTransactionSch
 // Actualizar transacción
 TransactionsRouter.put('/:id', authMiddleware, validateSchema(UpdateTransactionSchema), (req, res) => {
     const { id } = req.params;
-    const { usuario_id } = req.user;
+    const { user_id } = req.user;
     const { category_id, account_id, amount, date, description } = req.body;
-    
-    TransactionsModel.update(id, usuario_id, category_id, account_id, amount, date, description, (err, transaction) => {
+
+    TransactionsModel.update(id, user_id, category_id, account_id, amount, date, description, (err, changes) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        if (!transaction) return resError(res, { status: 404, message: 'Transacción no encontrada' });
-        return resSuccess(res, { message: 'Transacción actualizada exitosamente', data: transaction });
+        if (!changes) return resError(res, { status: 404, message: 'Transacción no encontrada' });
+        return resSuccess(res, { message: 'Transacción actualizada exitosamente', data: { changes } });
     })
 })
 
 // Eliminar transacción
 TransactionsRouter.delete('/:id', authMiddleware, (req, res) => {
     const { id } = req.params;
-    const { usuario_id } = req.user;
-    
-    TransactionsModel.delete(id, usuario_id, (err) => {
+    const { user_id } = req.user;
+
+    TransactionsModel.delete(id, user_id, (err, changes) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        return resSuccess(res, { message: 'Transacción eliminada exitosamente' });
+        return resSuccess(res, { message: 'Transacción eliminada exitosamente', data: { changes } });
     })
 })

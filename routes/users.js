@@ -31,7 +31,7 @@ UsersRouter.get('/:id', (req, res) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
 
         const sanitizedUser = sanitizeUserData(user);
-        return resSuccess(res, { message: 'Información del usuario', data: { user: sanitizedUser } });
+        return resSuccess(res, { message: 'Información del usuario', data: sanitizedUser });
     })
 })
 
@@ -40,7 +40,7 @@ UsersRouter.delete('/', (req, res) => {
 
     UsersModel.delete(id, (err, user) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        return resSuccess(res, { message: 'Usuario eliminado exitosamente', data: { user } });
+        return resSuccess(res, { message: 'Usuario eliminado exitosamente', data: user });
     })
 })
 

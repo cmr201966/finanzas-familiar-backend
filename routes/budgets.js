@@ -55,10 +55,10 @@ BudgetsRouter.put('/:id', authMiddleware, validateSchema(UpdateBudgetSchema), (r
     const { user_id } = req.user;
     const { category_id, amount_limit, month } = req.body;
 
-    BudgetsModel.update(id, user_id, category_id, amount_limit, month, (err, budget) => {
+    BudgetsModel.update(id, user_id, category_id, amount_limit, month, (err, changes) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        if (!budget) return resError(res, { status: 404, message: 'Presupuesto no encontrado' });
-        return resSuccess(res, { message: 'Presupuesto actualizado exitosamente', data: budget });
+        if (!changes) return resError(res, { status: 404, message: 'Presupuesto no encontrado' });
+        return resSuccess(res, { message: 'Presupuesto actualizado exitosamente', data: { changes } });
     })
 })
 
@@ -67,8 +67,8 @@ BudgetsRouter.delete('/:id', authMiddleware, (req, res) => {
     const { id } = req.params;
     const { user_id } = req.user;
 
-    BudgetsModel.delete(id, user_id, (err) => {
+    BudgetsModel.delete(id, user_id, (err, changes) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        return resSuccess(res, { message: 'Presupuesto eliminado exitosamente' });
+        return resSuccess(res, { message: 'Presupuesto eliminado exitosamente', data: { changes } });
     })
 })
