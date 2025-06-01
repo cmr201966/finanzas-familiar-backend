@@ -48,7 +48,7 @@ export function seedDatabase() {
                 VALUES (?, ?, ?, ?, ?, ?)`, [2, 1, 100 + index * 10, '2025-05-04', 'Transferencia mensual', userId]);
 
                 // Presupuestos
-                db.run(`INSERT INTO presupuestos (usuario_id, categoria_id, monto_limite, mes) 
+                db.run(`INSERT INTO presupuestos (user_id, category_id, amount_limit, month)
                 VALUES (?, ?, ?, ?)`, [userId, 2, 400 + index * 50, '2025-05']);
             });
         });
