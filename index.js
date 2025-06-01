@@ -11,7 +11,7 @@ import { UsersRouter } from './routes/users.js';
 import { AuthRouter } from './routes/auth.js';
 import { AccountsRouter } from './routes/accounts.js';
 import { BudgetsRouter } from './routes/budgets.js';
-import { NotFoundRouter } from './routes/404.js';
+import { NotFoundRouter } from './routes/notFound.js';
 
 // Middlewares
 import authMiddleware from './middleware/auth.js';
