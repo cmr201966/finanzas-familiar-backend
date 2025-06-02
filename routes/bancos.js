@@ -39,7 +39,7 @@ BancosRouter.post('/', validator(BancosSchema), (req, res) => {
 });
 
 // Modificar banco
-BancosRouter.put('/:id', validator(BancoUpdateSchema), (req, res) => {
+BancosRouter.put('/:id', (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
 
