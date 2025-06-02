@@ -13,26 +13,25 @@ import validator from '../middleware/validator.js';
 // Router
 export const ExpenseRouter = Router();
 
-// Obtener todas las categorias
+ExpenseRouter.get('/', (req, res) => {
+  ExpenseModel.getCategorias((err, categorias) => {
+    if (err) return resError(res, { status: 500, message: 'Error del servidor' });   
+       return resSuccess(res, { message: 'Todas las categorias', data: categorias });
+    })
+});
 
-  ExpenseRouter.get('/search/:type/:iduser', (req, res) => {
+ExpenseRouter.get('/search/:type/:iduser', (req, res) => {
     const { type, iduser } = req.params;
-      if (type) {
+      if (type && iduser) {
         ExpenseModel.getCategoriasByType(type, iduser, (err, categorias) => {
               if (err) return resError(res, { status: 500, message: 'Error del servidor' });
               return resSuccess(res, { message: 'Categorias segun tipo', data: categorias });
           })
-          } else {
-            ExpenseModel.getCategorias((err, categorias) => {
-              if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-      
-              return resSuccess(res, { message: 'Todas las categorias', data: categorias });
-          })
-          }
+        }
   });
   
 // Crear gasto
-ExpenseRouter.post('/search/', validator(ExpenseSchema), (req, res) => {
+ExpenseRouter.post('/', validator(ExpenseSchema), (req, res) => {
   ExpenseModel.create(req.body, (err, id) => {
     if (err) return resError(res, { status: 500, message: 'Error del servidor' });
     return resSuccess(res, { message: 'Gasto creado exitosamente', data: { id } });
@@ -40,7 +39,7 @@ ExpenseRouter.post('/search/', validator(ExpenseSchema), (req, res) => {
 });
 
 // Modificar gasto
-ExpenseRouter.put('/search/:id', (req, res) => {
+ExpenseRouter.put('/:id', (req, res) => {
   ExpenseModel.update(req.params.id, req.body, (err, changes) => {
     if (err) return resError(res, { status: 500, message: 'Error del servidor' });
     return resSuccess(res, { message: 'Gasto actualizado', data: { changes } });
@@ -48,7 +47,7 @@ ExpenseRouter.put('/search/:id', (req, res) => {
 });
 
 // Eliminar gasto
-ExpenseRouter.delete('/search/:id', (req, res) => {
+ExpenseRouter.delete('/:id', (req, res) => {
   ExpenseModel.delete(req.params.id, (err, changes) => {
     if (err) return resError(res, { status: 500, message: 'Error del servidor' });
     return resSuccess(res, { message: 'Gasto eliminado', data: { changes } });

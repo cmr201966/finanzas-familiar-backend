@@ -2,12 +2,13 @@ import { db } from "../db/database.js";
 
 
 export const PresupuestoModel = {
+
     create: (presupuesto, callback) => {
-        console.log(presupuesto)
-        db.run('INSERT INTO presupuestos (usuario_id, categoria_id, monto_limita, mes, creado_en) VALUES (?, ?, ?, ?, ?)', [presupuesto.usuario_id, presupuesto.categoria_id, presupuesto.monto_limite, presupuesto.mes, presupuesto.creado_en], function (err) {
-            const newPresupuesto = { id: this.lastID, ...presupuesto };
-            callback(err, newPresupuesto);
-        });
+        db.run('INSERT INTO presupuestos (usuario_id, categoria_id, monto_limite, mes, creado_en) VALUES (?, ?, ?, ?, ?)', [presupuesto.usuario_id, presupuesto.categoria_id, presupuesto.monto_limite, presupuesto.mes, presupuesto.creado_en], 
+            function (err) {
+                const newPresupuesto = { id: this.lastID, ...presupuesto };
+                callback(err, newPresupuesto);
+            });
     },
 
     getPresupuestos: (callback) => {
@@ -47,10 +48,7 @@ FROM presupuestos
 JOIN users ON presupuestos.usuario_id = users.id 
 JOIN categories ON presupuestos.categoria_id = categories.id
 WHERE users.username = ?
-`;
-      
-      console.log('Consulta SQL:', query);
-      console.log('Parámetros:', [username]);
+`;     
       
       db.all(query, [username], function (err, rows) {
         callback(err, rows);

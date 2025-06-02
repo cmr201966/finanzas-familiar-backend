@@ -46,6 +46,8 @@ PresupuestosRouter.get('/id/:id', (req, res) => {
 
 // Crear cuenta
 PresupuestosRouter.post('/', (req, res) => {
+    console.log("routes")
+    console.log(req.body)
 //PresupuestosRouter.post('/', validator(PresupuestoSchema), (req, res) => {
         PresupuestoModel.create(req.body, (err, account) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
