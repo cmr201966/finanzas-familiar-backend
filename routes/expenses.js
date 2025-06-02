@@ -20,9 +20,9 @@ ExpenseRouter.get('/', (req, res) => {
     })
 });
 
-ExpenseRouter.get('/search/:type/:iduser', (req, res) => {
-    const { type, iduser } = req.params;
-      if (type && iduser) {
+ExpenseRouter.get('/search/type/:type', (req, res) => {
+    const { type } = req.params;
+      if (type) {
         ExpenseModel.getCategoriasByType(type, iduser, (err, categorias) => {
               if (err) return resError(res, { status: 500, message: 'Error del servidor' });
               return resSuccess(res, { message: 'Categorias segun tipo', data: categorias });
@@ -30,6 +30,26 @@ ExpenseRouter.get('/search/:type/:iduser', (req, res) => {
         }
   });
   
+ExpenseRouter.get('/search/userid/:iduser', (req, res) => {
+  const {iduser } = req.params;
+    if (iduser) {
+      ExpenseModel.getCategoriasByType(type, iduser, (err, categorias) => {
+            if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+            return resSuccess(res, { message: 'Categorias segun tipo', data: categorias });
+        })
+      }
+});
+
+ExpenseRouter.get('/search/typeiduser/:type/:iduser', (req, res) => {
+  const { type, iduser } = req.params;
+    if (type && iduser) {
+      ExpenseModel.getCategoriasByType(type, iduser, (err, categorias) => {
+            if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+            return resSuccess(res, { message: 'Categorias segun tipo', data: categorias });
+        })
+      }
+});
+
 // Crear gasto
 ExpenseRouter.post('/', validator(ExpenseSchema), (req, res) => {
   ExpenseModel.create(req.body, (err, id) => {
