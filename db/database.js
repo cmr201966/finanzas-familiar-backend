@@ -40,7 +40,7 @@ export function initTables() {
     CREATE TABLE IF NOT EXISTS categories (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      type TEXT CHECK (type IN ('income', 'expense')) NOT NULL,
+      type TEXT CHECK (type IN ('ingreso', 'gasto')) NOT NULL,
       description TEXT,
       user_id INTEGER,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

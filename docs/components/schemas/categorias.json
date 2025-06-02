@@ -1,0 +1,29 @@
+{
+    "Categoria": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Alimentación"
+        },
+        "type": {
+          "type": "string",
+          "example": "gasto"
+        },
+        "usuario_id": {
+          "type": "integer",
+          "example": 3
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "usuario_id"
+      ]
+    }
+  }
+  

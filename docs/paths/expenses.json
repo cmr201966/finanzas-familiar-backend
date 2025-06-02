@@ -1,201 +1,106 @@
 {
-    "/expenses": {
-        "get": {
-            "summary": "Obtener todos los gastos",
-            "tags": [
-                "Expenses"
-            ],
-            "responses": {
-                "200": {
-                    "description": "Gastos obtenidos",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
-                            }
-                        }
-                    }
-                },
-                "500": {
-                    "description": "Error del servidor",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
-                            }
-                        }
-                    }
+    "/expenses/search/{type}/{iduser}": {
+      "get": {
+        "tags": ["Gastos"],
+        "summary": "Obtener categorías por tipo y usuario",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "iduser",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Categorías encontradas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Expense" }
                 }
+              }
             }
-        },
-        "post": {
-            "summary": "Crear gasto",
-            "tags": [
-                "Expenses"
-            ],
-            "requestBody": {
-                "description": "Datos del gasto",
-                "required": true,
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/ExpenseRequest"
-                        }
-                    }
-                }
-            },
-            "responses": {
-                "200": {
-                    "description": "Gasto creado exitosamente",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
-                            }
-                        }
-                    }
-                },
-                "500": {
-                    "description": "Error del servidor",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
-                            }
-                        }
-                    }
-                }
-            }
+          }
         }
+      }
     },
-    "/expenses/{id}": {
-        "get": {
-            "summary": "Obtener un gasto por ID",
-            "tags": [
-                "Expenses"
-            ],
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "ID del gasto",
-                    "schema": {
-                        "type": "integer"
-                    }
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Gasto obtenido",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
-                            }
-                        }
-                    }
-                },
-                "500": {
-                    "description": "Error del servidor",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
-                            }
-                        }
-                    }
-                }
+    "/expenses/search": {
+      "post": {
+        "tags": ["Gastos"],
+        "summary": "Crear nuevo gasto",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ExpenseInput" }
             }
+          }
         },
-        "put": {
-            "summary": "Modificar gasto",
-            "tags": [
-                "Expenses"
-            ],
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "ID del gasto a modificar",
-                    "schema": {
-                        "type": "integer"
-                    }
+        "responses": {
+          "201": {
+            "description": "Gasto creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Expense"
                 }
-            ],
-            "requestBody": {
-                "description": "Datos actualizados del gasto",
-                "required": true,
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/ExpenseRequest"
-                        }
-                    }
-                }
-            },
-            "responses": {
-                "200": {
-                    "description": "Gasto actualizado",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
-                            }
-                        }
-                    }
-                },
-                "500": {
-                    "description": "Error del servidor",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
-                            }
-                        }
-                    }
-                }
+              }
             }
-        },
-        "delete": {
-            "summary": "Eliminar gasto",
-            "tags": [
-                "Expenses"
-            ],
-            "parameters": [
-                {
-                    "name": "id",
-                    "in": "path",
-                    "required": true,
-                    "description": "ID del gasto a eliminar",
-                    "schema": {
-                        "type": "integer"
-                    }
-                }
-            ],
-            "responses": {
-                "200": {
-                    "description": "Gasto eliminado",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseSuccess"
-                            }
-                        }
-                    }
-                },
-                "500": {
-                    "description": "Error del servidor",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ResponseError"
-                            }
-                        }
-                    }
-                }
-            }
+          }
         }
+      }
+    },
+    "/expenses/search/{id}": {
+      "put": {
+        "tags": ["Gastos"],
+        "summary": "Actualizar gasto por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ExpenseInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Gasto actualizado"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Gastos"],
+        "summary": "Eliminar gasto por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Gasto eliminado"
+          }
+        }
+      }
     }
-}
+  }
+  

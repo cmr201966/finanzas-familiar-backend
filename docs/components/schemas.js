@@ -3,9 +3,13 @@ import { join } from 'path';
 import { cwd } from 'process';
 
 // Leer archivos JSON
-const expenses = JSON.parse(readFileSync(join(cwd(), './docs/components/paths/expenses.json'), 'utf8'));
-const auth = JSON.parse(readFileSync(join(cwd(), './docs/components/paths/auth.json'), 'utf8'));
-const accounts = JSON.parse(readFileSync(join(cwd(), './docs/components/paths/accounts.json'), 'utf8'));
+const expenses = JSON.parse(readFileSync(join(cwd(), './docs/components/schemas/expenses.json'), 'utf8'));
+const auth = JSON.parse(readFileSync(join(cwd(), './docs/components/schemas/auth.json'), 'utf8'));
+const accounts = JSON.parse(readFileSync(join(cwd(), './docs/components/schemas/accounts.json'), 'utf8'));
+const categorias = JSON.parse(readFileSync(join(cwd(), './docs/components/schemas/categorias.json'), 'utf8'));
+const presupuesto = JSON.parse(readFileSync(join(cwd(), './docs/components/schemas/presupuesto.json'), 'utf8'));
+const banco = JSON.parse(readFileSync(join(cwd(), './docs/components/schemas/banco.json'), 'utf8'));
+const tipocuenta = JSON.parse(readFileSync(join(cwd(), './docs/components/schemas/tipocuenta.json'), 'utf8'));
 
 // Definir esquemas base
 const baseSchemas = {
@@ -56,4 +60,8 @@ export const schemas = {
     ...expenses,
     ...auth,
     ...accounts,
+    ...categorias,
+    ...presupuesto,
+    ...banco,
+    ...tipocuenta,
 };

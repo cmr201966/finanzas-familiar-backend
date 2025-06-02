@@ -1,0 +1,14 @@
+{
+    "Presupuesto": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer", "example": 1 },
+        "usuario_id": { "type": "integer", "example": 3 },
+        "categoria_id": { "type": "integer", "example": 2 },
+        "monto_limite": { "type": "number", "example": 1000.00 },
+        "mes": { "type": "string", "example": "2025-06" },
+        "creado_en": { "type": "string", "format": "date", "example": "2025-05-30" }
+      }
+    }
+  }
+  

@@ -1,0 +1,136 @@
+{
+    "/bancos": {
+      "get": {
+        "tags": ["Bancos"],
+        "summary": "Obtener todos los bancos",
+        "responses": {
+          "200": {
+            "description": "Lista de bancos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "bancos": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Banco"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Bancos"],
+        "summary": "Crear un nuevo banco",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BancoInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Banco creado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Banco"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bancos/{id}": {
+      "get": {
+        "tags": ["Bancos"],
+        "summary": "Obtener un banco por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Banco obtenido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Banco"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Bancos"],
+        "summary": "Actualizar banco por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BancoInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Banco actualizado"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Bancos"],
+        "summary": "Eliminar banco por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Banco eliminado"
+          }
+        }
+      }
+    }
+  }
+  

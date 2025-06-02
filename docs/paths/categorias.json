@@ -1,0 +1,46 @@
+{
+  "/categorias/search/{type}/{iduser}": {
+    "get": {
+      "summary": "Obtener categorías por tipo y usuario",
+      "tags": ["Categorias"],
+      "parameters": [
+        {
+          "name": "type",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "iduser",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Categorías encontradas",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Categoria"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Error del servidor"
+        }
+      },
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ]
+    }
+  }
+}

@@ -13,6 +13,33 @@ import validator from '../middleware/validator.js';
 // Router
 export const PresupuestosRouter = Router();
 // Obtener todos los cuentas
+
+PresupuestosRouter.get('/search/:id/:username', (req, res) => {
+    const { username, id } = req.params;  
+      if (username) {
+        PresupuestoModel.getPresupuestosByUserName(username, (err, presupuestos) => {
+              if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+              return resSuccess(res, { message: 'Presupuestos segun usuario', data: presupuestos });
+          })
+          } else if (id) {
+            PresupuestoModel.getPresupuestosById(id, (err, presupuestos) => {
+                if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+                return resSuccess(res, { message: 'Presupuestos segun ID', data: presupuestos });
+            })
+    
+          } else {
+            PresupuestoModel.getPresupuestos((err, presupuestos) => {
+              if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+      
+              return resSuccess(res, { message: 'Todos los presupuestos', data: presupuestos });
+          })
+          }
+  });
+
+
+
+
+
 PresupuestosRouter.get('/', (req, res) => {
     PresupuestoModel.get((err, presupuestos) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
@@ -31,8 +58,9 @@ PresupuestosRouter.get('/:id', (req, res) => {
 });
 
 // Crear cuenta
-PresupuestosRouter.post('/', validator(PresupuestoSchema), (req, res) => {
-    PresupuestoModel.create(req.body, (err, account) => {
+PresupuestosRouter.post('/', (req, res) => {
+//PresupuestosRouter.post('/', validator(PresupuestoSchema), (req, res) => {
+        PresupuestoModel.create(req.body, (err, account) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Presupuesto creado exitosamente', data: { account } });
     });

@@ -1,0 +1,26 @@
+{
+    "TipoCuenta": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Cuenta Corriente"
+        }
+      }
+    },
+    "TipoCuentaInput": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Caja de Ahorro"
+        }
+      },
+      "required": ["name"]
+    }
+  }
+  

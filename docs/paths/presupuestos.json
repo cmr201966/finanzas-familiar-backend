@@ -1,0 +1,144 @@
+{
+    "/presupuestos": {
+      "get": {
+        "tags": ["Presupuestos"],
+        "summary": "Obtener todos los presupuestos",
+        "responses": {
+          "200": {
+            "description": "Presupuestos obtenidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "presupuestos": {
+                          "type": "array",
+                          "items": { "$ref": "#/components/schemas/Presupuesto" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Presupuestos"],
+        "summary": "Crear nuevo presupuesto",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presupuesto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Presupuesto creado exitosamente"
+          }
+        }
+      }
+    },
+  
+    "/presupuestos/{id}": {
+      "get": {
+        "tags": ["Presupuestos"],
+        "summary": "Obtener presupuesto por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Presupuesto encontrado"
+          },
+          "404": {
+            "description": "Presupuesto no encontrado"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Presupuestos"],
+        "summary": "Actualizar presupuesto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presupuesto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Presupuesto actualizado" }
+        }
+      },
+      "delete": {
+        "tags": ["Presupuestos"],
+        "summary": "Eliminar presupuesto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Presupuesto eliminado" }
+        }
+      }
+    },
+  
+    "/presupuestos/search/{id}/{username}": {
+      "get": {
+        "tags": ["Presupuestos"],
+        "summary": "Buscar presupuestos por ID o nombre de usuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Presupuestos encontrados"
+          },
+          "404": {
+            "description": "Presupuesto no encontrado"
+          }
+        }
+      }
+    }
+  }
+  
