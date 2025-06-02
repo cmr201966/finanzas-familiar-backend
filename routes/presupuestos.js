@@ -14,32 +14,6 @@ import validator from '../middleware/validator.js';
 export const PresupuestosRouter = Router();
 // Obtener todos los cuentas
 
-PresupuestosRouter.get('/search/:id/:username', (req, res) => {
-    const { username, id } = req.params;  
-      if (username) {
-        PresupuestoModel.getPresupuestosByUserName(username, (err, presupuestos) => {
-              if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-              return resSuccess(res, { message: 'Presupuestos segun usuario', data: presupuestos });
-          })
-          } else if (id) {
-            PresupuestoModel.getPresupuestosById(id, (err, presupuestos) => {
-                if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-                return resSuccess(res, { message: 'Presupuestos segun ID', data: presupuestos });
-            })
-    
-          } else {
-            PresupuestoModel.getPresupuestos((err, presupuestos) => {
-              if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-      
-              return resSuccess(res, { message: 'Todos los presupuestos', data: presupuestos });
-          })
-          }
-  });
-
-
-
-
-
 PresupuestosRouter.get('/', (req, res) => {
     PresupuestoModel.get((err, presupuestos) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
@@ -47,14 +21,27 @@ PresupuestosRouter.get('/', (req, res) => {
     });
 });
 
-// Obtener una cuenta por ID
-PresupuestosRouter.get('/:id', (req, res) => {
-    const { id } = req.params
+PresupuestosRouter.get('/username/:username', (req, res) => {
+    const { username, categoria } = req.params;  
+      console.log(username)
+      if (username) {
+        PresupuestoModel.getPresupuestosByUserName(username, (err, presupuestos) => {
+              if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+              return resSuccess(res, { message: 'Presupuestos segun usuario', data: presupuestos });
+          })
+    
+          } 
+  });
 
-    PresupuestoModel.getPresupuestoById(id, (err, presupuesto) => {
+// Obtener una cuenta por ID
+PresupuestosRouter.get('/id/:id', (req, res) => {
+    const { id } = req.params
+    if (id) {
+        PresupuestoModel.getPresupuestoById(id, (err, presupuesto) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Presupuestos obtenidos', data: { presupuesto: presupuesto || [] } });
     });
+  }
 });
 
 // Crear cuenta

@@ -10,7 +10,6 @@ export const ExpenseModel = {
     );
   },
   getCategoriasByType: (type, iduser, callback) => {
-    console.log("Ruta")
     db.all(
       `SELECT categories.* FROM categories, users WHERE (type = ?) and (users.id=categories.user_id) and (users.username=?)`,
       [type, iduser],

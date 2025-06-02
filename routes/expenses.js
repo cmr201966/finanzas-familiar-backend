@@ -16,11 +16,9 @@ export const ExpenseRouter = Router();
 // Obtener todas las categorias
 
   ExpenseRouter.get('/search/:type/:iduser', (req, res) => {
-    const { type, iduser } = req.params;  
+    const { type, iduser } = req.params;
       if (type) {
         ExpenseModel.getCategoriasByType(type, iduser, (err, categorias) => {
-              console.log(err)
-              console.log(categorias)
               if (err) return resError(res, { status: 500, message: 'Error del servidor' });
               return resSuccess(res, { message: 'Categorias segun tipo', data: categorias });
           })
