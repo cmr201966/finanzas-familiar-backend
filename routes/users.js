@@ -13,7 +13,6 @@ import { resSuccess, resError } from '../helpers/response.js';
 export const UsersRouter = Router()
 
 UsersRouter.get('/search', (req, res) => {
-//UsersRouter.get('/search', authMiddleware, (req, res) => {
 
     const { id, username } = req.query;
     if (id) {
