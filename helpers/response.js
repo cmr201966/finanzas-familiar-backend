@@ -7,13 +7,23 @@ export function resSuccess(res, { status = 200, message, data = {} }) {
 }
 
 
-export function resError(res, { status = 400, message, details = {} }) {
-    res.status(status).json({
-        success: false,
-        message,
-        error: {
-            code: status,
-            details
-        }
+//export function resError(res, { status = 400, message, details = {} }) {
+//    res.status(status).json({
+//        success: false,
+//        message,
+//        error: {
+//            code: status,
+//            details
+//        }
+//    });
+//}
+
+
+export function resError(res, { status = 500, message = 'Error', error = null }) {
+    return res.status(status).json({
+      success: false,
+      message,
+      error
     });
-}
+  }
+  

@@ -12,8 +12,8 @@ import validator from '../middleware/validator.js';
 
 // Router
 export const PresupuestosRouter = Router();
-// Obtener todos los cuentas
 
+// Obtener todos los presupuestos
 PresupuestosRouter.get('/', (req, res) => {
     PresupuestoModel.get((err, presupuestos) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
@@ -21,6 +21,7 @@ PresupuestosRouter.get('/', (req, res) => {
     });
 });
 
+// Obtener los presupuestos de un username
 PresupuestosRouter.get('/username/:username', (req, res) => {
     const { username, categoria } = req.params;  
       console.log(username)
@@ -33,7 +34,7 @@ PresupuestosRouter.get('/username/:username', (req, res) => {
           } 
   });
 
-// Obtener una cuenta por ID
+// Obtener un presupuesto por ID
 PresupuestosRouter.get('/id/:id', (req, res) => {
     const { id } = req.params
     if (id) {
@@ -44,18 +45,33 @@ PresupuestosRouter.get('/id/:id', (req, res) => {
   }
 });
 
-// Crear cuenta
+// Crear presupuesto
 PresupuestosRouter.post('/', (req, res) => {
-    console.log("routes")
-    console.log(req.body)
-//PresupuestosRouter.post('/', validator(PresupuestoSchema), (req, res) => {
-        PresupuestoModel.create(req.body, (err, account) => {
-        if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        return resSuccess(res, { message: 'Presupuesto creado exitosamente', data: { account } });
+    PresupuestoModel.create(req.body, (err, account) => {
+      if (err) {
+        return resError(res, {
+          status: 500,
+          message: 'Error al crear presupuesto',
+          error: err.message || err
+        });
+      }
+  
+      return resSuccess(res, {
+        message: 'Presupuesto creado exitosamente',
+        data: { account }
+      });
     });
-});
+  });
+  
 
-// Modificar cuenta
+//PresupuestosRouter.post('/', (req, res) => {
+//        PresupuestoModel.create(req.body, (err, account) => {
+//        if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+//        return resSuccess(res, { message: 'Presupuesto creado exitosamente', data: { account } });
+//    });
+//});
+
+// Modificar un presupuesto
 PresupuestosRouter.put('/:id', validator(PresupuestoUpdateSchema), (req, res) => {
     const { id } = req.params;
     const { name, type, bank, initial_balance } = req.body;
@@ -80,7 +96,7 @@ PresupuestosRouter.put('/:id', validator(PresupuestoUpdateSchema), (req, res) =>
     });
 });
 
-// Eliminar cuenta
+// Eliminar un presupuesto
 PresupuestosRouter.delete('/:id', (req, res) => {
     const { id } = req.params;
 
