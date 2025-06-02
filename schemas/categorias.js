@@ -3,7 +3,7 @@ import es from 'zod/v4/locales/es.js';
 
 z.config(es())
 
-export const ExpenseSchema = z.object({
+export const CategoriasSchema = z.object({
     amount: z.number(),
     date: z.string(),
     category: z.string(),

@@ -1,6 +1,7 @@
 import { db } from '../db/database.js';
 
-export const ExpenseModel = {
+export const CategoriasModel = {
+
   getCategorias: (callback) => {
     db.all(
       `SELECT * FROM categories`,
@@ -19,8 +20,8 @@ export const ExpenseModel = {
     );
   },
   
-  create: (expense, callback) => {
-    const { amount, description, date } = expense;
+  create: (categoria, callback) => {
+    const { amount, description, date } = categoria;
     db.run(
       `INSERT INTO transactions (amount, type, description, date) VALUES (?, 'expense', ?, ?)`,
       [amount, description, date],
@@ -30,8 +31,8 @@ export const ExpenseModel = {
     );
   },
 
-  update: (id, expense, callback) => {
-    const { amount, description, date } = expense;
+  update: (id, categoria, callback) => {
+    const { amount, description, date } = categoria;
     db.run(
       `UPDATE transactions SET amount = ?, description = ?, date = ? WHERE id = ? AND type = 'expense'`,
       [amount, description, date, id],

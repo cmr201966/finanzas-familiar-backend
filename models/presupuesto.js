@@ -4,7 +4,8 @@ import { db } from "../db/database.js";
 export const PresupuestoModel = {
 
     create: (presupuesto, callback) => {
-        db.run('INSERT INTO presupuestos (usuario_id, categoria_id, monto_limite, mes, creado_en) VALUES (?, ?, ?, ?, ?)', [presupuesto.usuario_id, presupuesto.categoria_id, presupuesto.monto_limite, presupuesto.mes, presupuesto.creado_en], 
+        db.run('INSERT INTO presupuestos (usuario_id, categoria_id, monto_limite, mes, creado_en) VALUES (?, ?, ?, ?, ?)', 
+                [presupuesto.usuario_id, presupuesto.categoria_id, presupuesto.monto_limite, presupuesto.mes, presupuesto.creado_en], 
             function (err) {
                 const newPresupuesto = { id: this.lastID, ...presupuesto };
                 console.log(err)

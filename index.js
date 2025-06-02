@@ -6,7 +6,7 @@ import swaggerUi from 'swagger-ui-express'
 import { swaggerDoc } from './docs/swagger.js'
 
 // Routes
-import { ExpenseRouter } from './routes/expenses.js';
+import { CategoriasRouter } from './routes/categorias.js';
 import { UsersRouter } from './routes/users.js';
 import { AuthRouter } from './routes/auth.js';
 import { AccountsRouter } from './routes/accounts.js';
@@ -31,7 +31,7 @@ app.use(cors({
 }));
 
 app.use('/api/auth', AuthRouter);
-app.use('/api/categorias', ExpenseRouter);
+app.use('/api/categorias', CategoriasRouter);
 app.use('/api/users', UsersRouter);
 app.use('/api/accounts', AccountsRouter);
 app.use('/api/presupuestos', PresupuestosRouter);
