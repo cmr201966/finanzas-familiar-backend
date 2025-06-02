@@ -24,7 +24,6 @@ PresupuestosRouter.get('/', (req, res) => {
 // Obtener los presupuestos de un username
 PresupuestosRouter.get('/username/:username', (req, res) => {
     const { username, categoria } = req.params;  
-      console.log(username)
       if (username) {
         PresupuestoModel.getPresupuestosByUserName(username, (err, presupuestos) => {
               if (err) return resError(res, { status: 500, message: 'Error del servidor' });
@@ -47,6 +46,7 @@ PresupuestosRouter.get('/id/:id', (req, res) => {
 
 // Crear presupuesto
 PresupuestosRouter.post('/', (req, res) => {
+    console.log("2222222")
     PresupuestoModel.create(req.body, (err, account) => {
       if (err) {
         return resError(res, {
@@ -72,14 +72,12 @@ PresupuestosRouter.post('/', (req, res) => {
 //});
 
 // Modificar un presupuesto
-PresupuestosRouter.put('/:id', validator(PresupuestoUpdateSchema), (req, res) => {
-    const { id } = req.params;
-    const { name, type, bank, initial_balance } = req.body;
+PresupuestosRouter.put('/', validator(PresupuestoUpdateSchema), (req, res) => {
+    const { id, usuario_id, categoria_id, monto_limite, mes, creado_en } = req.body;
 
     PresupuestoModel.getPresupuestoById(id, (err, presupuesto) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         if (!presupuesto) return resError(res, { status: 404, message: 'Presupuesto no encontrada' });
-
         const updatedPresupuesto = {
             ...presupuesto,
             usuario_id: usuario_id || presupuesto.usuario_id,
@@ -88,7 +86,6 @@ PresupuestosRouter.put('/:id', validator(PresupuestoUpdateSchema), (req, res) =>
             mes: mes || presupuesto.mes,
             creado_en: creado_en || presupuesto.creado_en,
         };
-
         PresupuestoModel.update(id, updatedPresupuesto, (err, changes) => {
             if (err) return resError(res, { status: 500, message: 'Error del servidor' });
             return resSuccess(res, { message: 'Presupuesto actualizado', data: { changes } });

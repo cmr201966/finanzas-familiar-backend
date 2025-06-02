@@ -45,6 +45,7 @@ SELECT
     WHEN 12 THEN 'diciembre'
     ELSE 'mes inválido'
   END AS mes,
+  presupuestos.categoria_id,
   categories.description AS categoria
 FROM presupuestos 
 JOIN users ON presupuestos.usuario_id = users.id 
@@ -59,7 +60,8 @@ WHERE users.username = ?
         //});
     },
     update: (id, presupuesto, callback) => {
-        db.run(`UPDATE presupuestos SET usuario_id = ?, categoria_id = ?, monto_limite = ?, mes = ?, creado_en WHERE id = ?`, [presupuesto.usuario_id, presupuesto.categoria_id, presupuesto.monto_limite, presupuesto.mes, presupuesto.creado_en, id], function (err) {
+        db.run(`UPDATE presupuestos SET usuario_id = ?, categoria_id = ?, monto_limite = ?, mes = ?, creado_en=? WHERE id = ?`,
+             [presupuesto.usuario_id, presupuesto.categoria_id, presupuesto.monto_limite, presupuesto.mes, presupuesto.creado_en, id], function (err) {
             callback(err, this?.changes);
         });
     },
