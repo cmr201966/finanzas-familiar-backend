@@ -41,7 +41,7 @@ AccountsRouter.post('/',(req, res) => {
 });
 
 // Modificar cuenta
-AccountsRouter.put('/:id', validator(AccountUpdateSchema), (req, res) => {
+AccountsRouter.put('/:id', (req, res) => {
     const { id } = req.params;
     const { name, type, bank, initial_balance } = req.body;
 
