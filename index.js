@@ -23,6 +23,7 @@ import { Config } from './config.js';
 const app = express();
 
 app.use(json());
+
 app.use(cors({
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
