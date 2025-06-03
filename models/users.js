@@ -42,7 +42,7 @@ export const UsersModel = {
         });
     },
     getUserForLogin: (user, callback) => {
-        db.get(`SELECT * FROM users WHERE (username = ? or email = ? or phone = ?)`, [user, user, user], function (err, row) {
+        db.get(`SELECT * FROM users WHERE (username = ? COLLATE NOCASE OR email = ? COLLATE NOCASE OR phone = ?)`, [user, user, user], function (err, row) {
             callback(err, row);
         });
     },
@@ -52,8 +52,7 @@ export const UsersModel = {
         });
     },
 
-    
-    update: ({ username, updatedUser }, callback) => {
+        update: ({ username, updatedUser }, callback) => {
         let fields = ['name = ?', 'phone = ?', 'email = ?'];
         let values = [updatedUser.name, updatedUser.phone, updatedUser.email];
     

@@ -20,11 +20,11 @@ AuthRouter.post('/login', validateSchema(LoginSchema), (req, res) => {
     const { user, password } = req.body;
     UsersModel.getUserForLogin(user, (err, user) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        if (!user) return resError(res, { status: 401, message: 'Credenciales incorrectas' });
+        if (!user) return resError(res, { status: 401, message: 'Usuario no existe' });
 
         compare(password, user.password, (err, isMatch) => {
             if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-            if (!isMatch) return resError(res, { status: 401, message: 'Credenciales incorrectas' });
+            if (!isMatch) return resError(res, { status: 401, message: 'Contraseña incorrecta' });
 
             const token = jwt.sign({ id: user.id, name: user.name }, Config.secret_key_jwt, {
                 expiresIn: '1h',
