@@ -21,10 +21,9 @@ export const CategoriasModel = {
   },
   
   create: (categoria, callback) => {
-    const { amount, description, date } = categoria;
+    const { name, type, description, user_id, created_at } = categoria;
     db.run(
-      `INSERT INTO transactions (amount, type, description, date) VALUES (?, 'expense', ?, ?)`,
-      [amount, description, date],
+      `INSERT INTO categories (name, type, description, user_id, created_at) VALUES (?, ?, ?, ?, ?)`, [name, type, description, user_id, created_at],
       function (err) {
         callback(err, this?.lastID);
       }
