@@ -24,9 +24,12 @@ export const CategoriasModel = {
     const { name, type, description, user_id, created_at } = categoria;
     db.run(
       `INSERT INTO categories (name, type, description, user_id, created_at) VALUES (?, ?, ?, ?, ?)`, [name, type, description, user_id, created_at],
-      function (err) {
-        callback(err, this?.lastID);
-      }
+      function(err) {
+    if (err) {
+      console.error("Error SQLite:", err);
+    }
+    callback(err, this?.lastID);
+  }
     );
   },
 
