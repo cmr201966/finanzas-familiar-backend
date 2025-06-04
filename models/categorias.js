@@ -36,7 +36,7 @@ export const CategoriasModel = {
   update: (id, categoria, callback) => {
     const { name, type, description, user_id, created_at } = categoria;
     db.run(
-      `UPDATE categories SET name = ?, type = ?, description = ?, user_id = ?, created_at = ? WHERE id = ?`,
+      `UPDATE categories SET name = ?, type= ?, description = ?, user_id = ?, created_at = ? WHERE id = ?`,
       [name, type, description, user_id, created_at, id],
       function (err) {
         callback(err, this?.changes);
