@@ -31,10 +31,10 @@ export const CategoriasModel = {
   },
 
   update: (id, categoria, callback) => {
-    const { amount, description, date } = categoria;
+    const { name, type, description, user_id, created_id } = categoria;
     db.run(
-      `UPDATE transactions SET amount = ?, description = ?, date = ? WHERE id = ? AND type = 'expense'`,
-      [amount, description, date, id],
+      `UPDATE categories SET name = ?, type = ?, description = ?, user_id = ?, created_id = ? WHERE id = ?`,
+      [name, type, description, user_id, created_id, id],
       function (err) {
         callback(err, this?.changes);
       }
@@ -42,7 +42,7 @@ export const CategoriasModel = {
   },
 
   delete: (id, callback) => {
-    db.run(`DELETE FROM transactions WHERE id = ? AND type = 'expense'`, [id], function (err) {
+    db.run(`DELETE FROM categories WHERE id = ?`, [id], function (err) {
       callback(err, this?.changes);
     });
   },

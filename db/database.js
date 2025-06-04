@@ -53,7 +53,7 @@ export function initTables() {
     CREATE TABLE IF NOT EXISTS transactions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       amount DECIMAL(10, 2) NOT NULL,
-      type TEXT CHECK (type IN ('income', 'expense')) NOT NULL,
+      type TEXT CHECK (type IN ('ingreso', 'gasto')) NOT NULL,
       description TEXT,
       date DATE NOT NULL,
       category_id INTEGER,

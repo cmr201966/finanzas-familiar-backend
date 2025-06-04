@@ -15,7 +15,7 @@ export const PresupuestosRouter = Router();
 
 // Obtener todos los presupuestos
 PresupuestosRouter.get('/', (req, res) => {
-    PresupuestoModel.get((err, presupuestos) => {
+    PresupuestoModel.getPresupuestos((err, presupuestos) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Presupuestos obtenidos', data: { presupuestos: presupuestos || [] } });
     });
