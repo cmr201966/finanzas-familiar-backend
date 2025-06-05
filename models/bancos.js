@@ -3,7 +3,7 @@ import { db } from "../db/database.js";
 
 export const BancosModel = {
     create: (banco, callback) => {
-        db.run('INSERT INTO bancos (name) VALUES (?, ?, ?, ?, ?)', [banco.name], function (err) {
+        db.run('INSERT INTO bancos (name) VALUES (?)', [banco.name], function (err) {
             const newBanco = { id: this.lastID, ...banco };
             callback(err, newBanco);
         });
@@ -14,8 +14,7 @@ export const BancosModel = {
             callback(err, rows);
         });
     },
-
-    getbancoById: (id, callback) => {
+    getBancoById: (id, callback) => {
         db.get(`SELECT * FROM bancos WHERE id = ?`, [id], function (err, row) {
             callback(err, row);
         });

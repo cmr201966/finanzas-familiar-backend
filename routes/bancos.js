@@ -31,8 +31,10 @@ BancosRouter.get('/:id', (req, res) => {
 });
 
 // Crear banco
-BancosRouter.post('/', validator(BancosSchema), (req, res) => {
-    BancosModel.create(req.body, (err, banco) => {
+BancosRouter.post('/',  (req, res) => {
+//BancosRouter.post('/', validator(BancosSchema), (req, res) => {
+    console.log(req.body)
+        BancosModel.create(req.body, (err, banco) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Banco creado exitosamente', data: { banco } });
     });
