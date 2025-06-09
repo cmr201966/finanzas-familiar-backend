@@ -14,6 +14,13 @@ export const BancosModel = {
             callback(err, rows);
         });
     },
+
+    bancoUsado: (id, callback) => {
+        db.get(`SELECT * FROM bancos, accounts WHERE (bancos.id=?) and (bancos.name=accounts.bank)`, [id], function (err, row) {
+            callback(err, row);
+        });
+    },
+
     getBancoById: (id, callback) => {
         db.get(`SELECT * FROM bancos WHERE id = ?`, [id], function (err, row) {
             callback(err, row);

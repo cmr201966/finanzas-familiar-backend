@@ -33,7 +33,6 @@ BancosRouter.get('/:id', (req, res) => {
 // Crear banco
 BancosRouter.post('/',  (req, res) => {
 //BancosRouter.post('/', validator(BancosSchema), (req, res) => {
-    console.log(req.body)
         BancosModel.create(req.body, (err, banco) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Banco creado exitosamente', data: { banco } });
@@ -69,9 +68,15 @@ BancosRouter.delete('/:id', (req, res) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         if (!banco) return resError(res, { status: 404, message: 'Banco no encontrado' });
 
-        bancosModel.delete(req.params.id, (err, changes) => {
+        BancosModel.bancoUsado(id, (err, cuentas) => {
             if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-            return resSuccess(res, { message: 'banco eliminado', data: { changes } });
-        });
+            if (cuentas) return resError(res, { status: 403, message: 'El banco esta asociado a una cuenta' });
+
+            BancosModel.delete(id, (err, changes) => {
+                if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+                return resSuccess(res, { message: 'banco eliminado', data: { changes } });
+            });
+    });
+
     });
 });

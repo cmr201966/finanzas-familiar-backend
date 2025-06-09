@@ -24,16 +24,17 @@ TipoCuentasRouter.get('/', (req, res) => {
 TipoCuentasRouter.get('/:id', (req, res) => {
     const { id } = req.params
 
-    TipoCuentasModel.gettipocuentaById(id, (err, tipocuenta) => {
+    TipoCuentasModel.getTipoCuentasById(id, (err, tipocuenta) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Tipo cuentas obtenidos', data: { tipocuentas: tipocuentas || [] } });
     });
 });
 
 // Crear tipocuenta
-TipoCuentasRouter.post('/', validator(TipoCuentasSchema), (req, res) => {
-    TipoCuentasModel.create(req.body, (err, tipocuenta) => {
-        if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+TipoCuentasRouter.post('/',  (req, res) => {
+//    TipoCuentasRouter.post('/', validator(TipoCuentasSchema), (req, res) => {
+        TipoCuentasModel.create(req.body, (err, tipocuenta) => {
+        if (err) return resError(res, { status: 500, message: err });
         return resSuccess(res, { message: 'Tipo cuenta creado exitosamente', data: { tipocuenta } });
     });
 });
@@ -43,16 +44,16 @@ TipoCuentasRouter.put('/:id', validator(TipoCuentaUpdateSchema), (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
 
-    TipoCuentasModel.getTipoCuentaById(id, (err, tipocuenta) => {
+    TipoCuentasModel.getTipoCuentasById(id, (err, tipocuenta) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         if (!tipocuenta) return resError(res, { status: 404, message: 'Tipo cuenta no encontrado' });
 
         const updatedTipoCuenta = {
-            ...TipoCuenta,
+            ...tipocuenta,
             name: name || tipocuenta.name,
         };
 
-        TiposCuentasModel.update(id, updatedTipoCuenta, (err, changes) => {
+        TipoCuentasModel.update(id, updatedTipoCuenta, (err, changes) => {
             if (err) return resError(res, { status: 500, message: 'Error del servidor' });
             return resSuccess(res, { message: 'Tipo Cuenta actualizado', data: { changes } });
         });
@@ -62,12 +63,11 @@ TipoCuentasRouter.put('/:id', validator(TipoCuentaUpdateSchema), (req, res) => {
 // Eliminar banco
 TipoCuentasRouter.delete('/:id', (req, res) => {
     const { id } = req.params;
-
-    TipoCuentasModel.getBancoById(id, (err, tipocuenta) => {
+    TipoCuentasModel.getTipoCuentasById(id, (err, tipocuenta) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         if (!tipocuenta) return resError(res, { status: 404, message: 'Tipo Cuenta no encontrado' });
 
-        TipoCuentasModel.delete(req.params.id, (err, changes) => {
+        TipoCuentasModel.delete(id, (err, changes) => {
             if (err) return resError(res, { status: 500, message: 'Error del servidor' });
             return resSuccess(res, { message: 'Tipo cuenta eliminado', data: { changes } });
         });

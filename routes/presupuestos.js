@@ -46,7 +46,6 @@ PresupuestosRouter.get('/id/:id', (req, res) => {
 
 // Crear presupuesto
 PresupuestosRouter.post('/', (req, res) => {
-    console.log("2222222")
     PresupuestoModel.create(req.body, (err, account) => {
       if (err) {
         return resError(res, {

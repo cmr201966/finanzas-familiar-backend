@@ -3,8 +3,8 @@ import { db } from "../db/database.js";
 
 export const TipoCuentasModel = {
     create: (tipocuentas, callback) => {
-        db.run('INSERT INTO tiposcuentas (name) VALUES (?, ?, ?, ?, ?)', [tipocuentas.name], function (err) {
-            const newTipoCuentas = { id: this.lastID, ...tipocuentas };
+        db.run('INSERT INTO tipocuentas (name) VALUES (?)', [tipocuentas.name], function (err) {
+            const newTipoCuentas = { id: this.lastID, ...tipocuentas };            
             callback(err, newTipoCuentas);
         });
     },
@@ -15,7 +15,7 @@ export const TipoCuentasModel = {
         });
     },
 
-    gettipocuentasById: (id, callback) => {
+    getTipoCuentasById: (id, callback) => {
         db.get(`SELECT * FROM tipocuentas WHERE id = ?`, [id], function (err, row) {
             callback(err, row);
         });

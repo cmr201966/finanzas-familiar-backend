@@ -53,7 +53,6 @@ CategoriasRouter.get('/search/typeiduser/:type/:iduser', (req, res) => {
 // Crear categoria
 CategoriasRouter.post('/', (req, res) => {
 //  CategoriasRouter.post('/', validator(CategoriasSchema), (req, res) => {
-  console.log(req.body)
   CategoriasModel.create(req.body, (err, id) => {
     if (err) return resError(res, { status: 500, message: err });
     return resSuccess(res, { message: 'Gasto creado exitosamente', data: { id } });

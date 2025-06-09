@@ -25,7 +25,6 @@ export const PresupuestoModel = {
         });
     },
     getPresupuestosByUserName: (username, callback) => {
-        console.log(username)
         const query = `
 SELECT 
   presupuestos.id, 
