@@ -14,7 +14,7 @@ export const AccountsModel = {
         });
     },
     getAccountById: (id, callback) => {
-        db.get(`SELECT * FROM accounts WHERE id = ?`, [id], function (err, row) {
+        db.all(`SELECT * FROM accounts WHERE user_id = ?`, [id], function (err, row) {
             callback(err, row);
         });
     },
