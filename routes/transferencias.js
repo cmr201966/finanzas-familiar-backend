@@ -23,7 +23,7 @@ TransferenciasRouter.get('/', (req, res) => {
 // Obtener las transferencias por id
 TransferenciasRouter.get('/:id', (req, res) => {
     const { id } = req.params
-
+    console.log(id)
     TransferenciasModel.getTransferenciaById(id, (err, transferencias) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Transferencias obtenidas por id', data: { transferencias: transferencias || [] } });

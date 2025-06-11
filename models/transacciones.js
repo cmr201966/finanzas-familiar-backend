@@ -4,7 +4,6 @@ import { db } from "../db/database.js";
 export const TransaccionesModel = {
     create: (transaccion, callback) => {
         console.log(transaccion)
-        console.log("1")
         db.run('INSERT INTO transactions (amount, type, description, date, category_id, account_id, user_id, created_at) VALUES (?, ?, ?, ? ,?, ?, ?, ?)', 
             [transaccion.amount, transaccion.type, transaccion.description, transaccion.date, transaccion.category_id, transaccion.account_id, 
                 transaccion.user_id, transaccion.created_at], function (err) {
@@ -26,8 +25,8 @@ export const TransaccionesModel = {
     },
     update: (id, transaccion, callback) => {
         db.run(`UPDATE transactions SET amount = ?, type = ?, description = ?, date = ?, category_id = ?, acount_id = ?, user_id = ?, created_at = ? WHERE id = ?`, 
-            [transaccion.amount, transaccion.type, transaccion.description, transaccion.date, transaccion.catewgory_id, transaccion.acount_id, transaccion.user_id, 
-             transaccion.ceated_at, id], function (err) {
+            [transaccion.amount, transaccion.type, transaccion.description, transaccion.date, transaccion.category_id, transaccion.account_id, transaccion.user_id, 
+             transaccion.created_at, id], function (err) {
             callback(err, this?.changes);
         });
     },

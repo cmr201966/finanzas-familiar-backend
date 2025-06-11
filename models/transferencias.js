@@ -4,11 +4,9 @@ export const TransferenciasModel = {
     create: (transferencia, callback) => {
         const [dia, mes, anio] = transferencia.date.split('/');       
         const fechaFormateada = `${anio}-${mes}-${dia}`;
-        console.log(transferencia)
         db.run('INSERT INTO transfers (from_account_id, to_account_id, amount, date, description, user_id) VALUES (?, ?, ?, ?, ?, ?)', 
             [transferencia.from_account_id, transferencia.to_account_id, transferencia.amount, fechaFormateada, transferencia.description, 
              transferencia.user_id], function (err) {
-                console.log(this)
             const newTransferencia = { id: this.lastID, ...transferencia };
             callback(err, newTransferencia);
         });
@@ -21,7 +19,7 @@ export const TransferenciasModel = {
     },
 
     getTransferenciaById: (id, callback) => {
-        db.all(`SELECT * FROM transfers WHERE id = ?`, [id], function (err, row) {
+        db.all(`SELECT * FROM transfers WHERE user_id = ?`, [id], function (err, row) {
             callback(err, row);
         });
     },
