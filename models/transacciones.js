@@ -3,7 +3,8 @@ import { db } from "../db/database.js";
 
 export const TransaccionesModel = {
     create: (transaccion, callback) => {
-        db.run('INSERT INTO transactions (amount, type, description, date, category_id, acount_id, user_id, created_at) VALUES (?)', 
+        console.log(transaccion)
+        db.run('INSERT INTO transactions (amount, type, description, date, category_id, acount_id, user_id, created_at) VALUES (?, ?, ?, ? ,?, ?, ?, ?)', 
             [transaccion.amount, transaccion.type, transaccion.description, transaccion.date, transaccion.catewgory_id, transaccion.acount_id, 
                 transaccion.user_id, transaccion.ceated_at], function (err) {
             const newTransaccion = { id: this.lastID, ...transaccion };

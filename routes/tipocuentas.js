@@ -24,7 +24,7 @@ TipoCuentasRouter.get('/', (req, res) => {
 TipoCuentasRouter.get('/:id', (req, res) => {
     const { id } = req.params
 
-    TipoCuentasModel.getTipoCuentasById(id, (err, tipocuenta) => {
+    TipoCuentasModel.getTipoCuentasById(id, (err, tipocuentas) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Tipo cuentas obtenidos', data: { tipocuentas: tipocuentas || [] } });
     });

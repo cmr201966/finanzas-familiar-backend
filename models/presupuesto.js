@@ -8,7 +8,6 @@ export const PresupuestoModel = {
                 [presupuesto.usuario_id, presupuesto.categoria_id, presupuesto.monto_limite, presupuesto.mes, presupuesto.creado_en], 
             function (err) {
                 const newPresupuesto = { id: this.lastID, ...presupuesto };
-                console.log(err)
                 callback(err, newPresupuesto);
             });
     },

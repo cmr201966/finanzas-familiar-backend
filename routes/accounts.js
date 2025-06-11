@@ -26,7 +26,6 @@ AccountsRouter.get('/:id', (req, res) => {
     const { id } = req.params
 
     AccountsModel.getAccountById(id, (err, account) => {
-        console.log(account)
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         return resSuccess(res, { message: 'Cuenta obtenida', data: { account: account || [] } });
     });

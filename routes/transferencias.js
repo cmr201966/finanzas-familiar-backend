@@ -20,15 +20,16 @@ TransferenciasRouter.get('/', (req, res) => {
     });
 });
 
-// Obtener una cuenta por ID
+// Obtener las transferencias por id
 TransferenciasRouter.get('/:id', (req, res) => {
     const { id } = req.params
 
-    TransferenciasModel.getTransferencias(id, (err, transferencia) => {
+    TransferenciasModel.getTransferenciaById(id, (err, transferencias) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        return resSuccess(res, { message: 'Transferencias obtenidas', data: { transferencia: transferencia || [] } });
+        return resSuccess(res, { message: 'Transferencias obtenidas por id', data: { transferencias: transferencias || [] } });
     });
 });
+
 
 // Crear tipocuenta
 TransferenciasRouter.post('/',  (req, res) => {
