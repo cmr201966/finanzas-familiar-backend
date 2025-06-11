@@ -24,18 +24,18 @@ TransaccionesRouter.get('/', (req, res) => {
 TransaccionesRouter.get('/:id', (req, res) => {
     const { id } = req.params
 
-    TransaccionesModel.getTransaccionesById(id, (err, tipocuenta) => {
+    TransaccionesModel.getTransaccionById(id, (err, transacciones) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        return resSuccess(res, { message: 'Tipo cuentas obtenidos', data: { Transacciones: Transacciones || [] } });
+        return resSuccess(res, { message: 'Tipo cuentas obtenidos', data: { transacciones: transacciones || [] } });
     });
 });
 
 // Crear tipocuenta
 TransaccionesRouter.post('/',  (req, res) => {
 //    TipoCuentasRouter.post('/', validator(TipoCuentasSchema), (req, res) => {
-        TransaccionesModel.create(req.body, (err, tipocuenta) => {
+        TransaccionesModel.create(req.body, (err, transaccion) => {
         if (err) return resError(res, { status: 500, message: err });
-        return resSuccess(res, { message: 'Transacciones creada exitosamente', data: { Transacciones } });
+        return resSuccess(res, { message: 'Transacciones creada exitosamente', data: { transaccion } });
     });
 });
 
@@ -44,7 +44,7 @@ TransaccionesRouter.put('/:id', validator(TransaccionesUpdateSchema), (req, res)
     const { id } = req.params;
     const { name } = req.body;
 
-    TransaccionesModel.getTransaccionesById(id, (err, transacciones) => {
+    TransaccionesModel.getTransaccionById(id, (err, transacciones) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         if (!transacciones) return resError(res, { status: 404, message: 'Transacciones no encontrada' });
 
@@ -70,9 +70,9 @@ TransaccionesRouter.put('/:id', validator(TransaccionesUpdateSchema), (req, res)
 // Eliminar banco
 TransaccionesRouter.delete('/:id', (req, res) => {
     const { id } = req.params;
-    TransaccionesModel.getTransaccionesById(id, (err, Transaccion) => {
+    TransaccionesModel.getTransaccionById(id, (err, Transaccion) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
-        if (!Transaccion) return resError(res, { status: 404, message: 'Transacciones no encontrada' });
+        if (!Transaccion) return resError(res, { status: 404, message: 'Transaccione no encontrada' });
 
         TransaccionesModel.delete(id, (err, changes) => {
             if (err) return resError(res, { status: 500, message: 'Error del servidor' });

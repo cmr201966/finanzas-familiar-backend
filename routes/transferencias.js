@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 // Models
-import { TransferenciaModel } from '../models/transferencias.js';
+import { TransferenciasModel } from '../models/transferencias.js';
 
 // Helpers
 import { resSuccess, resError } from '../helpers/response.js';
@@ -33,15 +33,16 @@ TransferenciasRouter.get('/:id', (req, res) => {
 // Crear tipocuenta
 TransferenciasRouter.post('/',  (req, res) => {
 //    TipoCuentasRouter.post('/', validator(TipoCuentasSchema), (req, res) => {
-    TransferenciasModel.create(req.body, (err, tipocuenta) => {
+    TransferenciasModel.create(req.body, (err, transferencia) => {
         if (err) return resError(res, { status: 500, message: err });
-        return resSuccess(res, { message: 'Transacciones creada exitosamente', data: { Transacciones } });
+        return resSuccess(res, { message: 'Transacciones creada exitosamente', data: { transferencia } });
     });
 });
 
 // Modificar tipo cuenta
-TransferenciasRouter.put('/:id', validator(TransferenciasUpdateSchema), (req, res) => {
-    const { id } = req.params;
+//TransferenciasRouter.put('/:id', validator(TransferenciasUpdateSchema), (req, res) => {
+TransferenciasRouter.put('/:id',  (req, res) => {
+        const { id } = req.params;
     const { name } = req.body;
 
     TransferenciasModel.getTransaccionesById(id, (err, transferencia) => {
