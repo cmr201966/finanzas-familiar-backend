@@ -40,14 +40,15 @@ TransaccionesRouter.post('/',  (req, res) => {
 });
 
 // Modificar tipo cuenta
-TransaccionesRouter.put('/:id', validator(TransaccionesUpdateSchema), (req, res) => {
+//TransaccionesRouter.put('/:id', validator(TransaccionesUpdateSchema), (req, res) => {
+TransaccionesRouter.put('/:id',  (req, res) => {
     const { id } = req.params;
-    const { name } = req.body;
+    const { amount, type, description, date, category_id, account_id, user_id, created_at } = req.body;
 
     TransaccionesModel.getTransaccionById(id, (err, transacciones) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });
         if (!transacciones) return resError(res, { status: 404, message: 'Transacciones no encontrada' });
-
+        console.log(req.body)
         const updatedTransacciones = {
             ...transacciones,
             amount: amount || transacciones.amount,
@@ -55,7 +56,7 @@ TransaccionesRouter.put('/:id', validator(TransaccionesUpdateSchema), (req, res)
             description: description || transacciones.description,
             date: date || transacciones.date,
             category_id: category_id || transacciones.category_id,
-            acount_id: acount_id || transacciones.acount_id,
+            account_id: account_id || transacciones.account_id,
             user_id: user_id || transacciones.user_id,
             created_at: created_at || transacciones.created_at,
         };

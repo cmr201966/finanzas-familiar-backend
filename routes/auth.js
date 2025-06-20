@@ -16,7 +16,8 @@ import validateSchema from '../middleware/validator.js';
 
 export const AuthRouter = Router();
 
-AuthRouter.post('/login', validateSchema(LoginSchema), (req, res) => {
+AuthRouter.post('/login', (req, res) => {
+//AuthRouter.post('/login', validateSchema(LoginSchema), (req, res) => {
     const { user, password } = req.body;
     UsersModel.getUserForLogin(user, (err, user) => {
         if (err) return resError(res, { status: 500, message: 'Error del servidor' });

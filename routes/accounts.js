@@ -21,6 +21,15 @@ AccountsRouter.get('/', (req, res) => {
     });
 });
 
+// Obtener saldo actual por cuentas
+AccountsRouter.get('/saldos', (req, res) => {
+
+    AccountsModel.getAccountsSaldos( (err, accountsaldos) => {
+        if (err) return resError(res, { status: 500, message: 'Error del servidor' });
+        return resSuccess(res, { message: 'Saldos de las cuentas', data: { accountsaldos: accountsaldos || [] } });
+    });
+});
+
 // Obtener una cuenta por ID
 AccountsRouter.get('/:id', (req, res) => {
     const { id } = req.params
@@ -30,6 +39,7 @@ AccountsRouter.get('/:id', (req, res) => {
         return resSuccess(res, { message: 'Cuenta obtenida', data: { account: account || [] } });
     });
 });
+
 
 // Crear cuenta
 AccountsRouter.post('/',(req, res) => {

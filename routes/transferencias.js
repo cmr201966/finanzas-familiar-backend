@@ -31,16 +31,17 @@ TransferenciasRouter.get('/:id', (req, res) => {
 });
 
 
-// Crear tipocuenta
+// Crear una transferencia
 TransferenciasRouter.post('/',  (req, res) => {
 //    TipoCuentasRouter.post('/', validator(TipoCuentasSchema), (req, res) => {
+    console.log(req.body)
     TransferenciasModel.create(req.body, (err, transferencia) => {
         if (err) return resError(res, { status: 500, message: err });
         return resSuccess(res, { message: 'Transacciones creada exitosamente', data: { transferencia } });
     });
 });
 
-// Modificar tipo cuenta
+// Modificar una transferencia
 //TransferenciasRouter.put('/:id', validator(TransferenciasUpdateSchema), (req, res) => {
 TransferenciasRouter.put('/:id',  (req, res) => {
         const { id } = req.params;
